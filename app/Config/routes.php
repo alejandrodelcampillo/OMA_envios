@@ -31,6 +31,14 @@
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
+/*
+	Ruta para controller del modelo Shipment
+	By: Alvin Velazquez
+	22/03/17 
+*/
+	Router::mapResources('shipments');
+	Router::parseExtensions();
+
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
