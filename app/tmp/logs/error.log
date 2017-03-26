@@ -735,3 +735,21 @@ Request URL: /OMA_envios/login.html
 Stack Trace:
 #0 C:\wamp\www\OMA_envios\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2017-03-24 23:11:46 Error: [MissingControllerException] Controller class LoginController could not be found.
+Exception Attributes: array (
+  'class' => 'LoginController',
+  'plugin' => NULL,
+)
+Request URL: /OMA_envios/login.html
+Stack Trace:
+#0 C:\wamp\www\OMA_envios\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-03-24 23:46:13 Error: [MissingControllerException] Controller class FormController could not be found.
+Exception Attributes: array (
+  'class' => 'FormController',
+  'plugin' => NULL,
+)
+Request URL: /OMA_envios/form.html
+Stack Trace:
+#0 C:\wamp\www\OMA_envios\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
