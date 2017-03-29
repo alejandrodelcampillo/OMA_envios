@@ -71,8 +71,8 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'root',
-		'password' => '7240947',
-		'database' => 'comercio_oma',
+		'password' => '',
+		'database' => 'oma_envios',
 		'prefix' => '',
 		'encoding' => 'utf8',
 	);
