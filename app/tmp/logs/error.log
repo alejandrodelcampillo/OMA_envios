@@ -2104,3 +2104,25 @@ Stack Trace:
 #3 C:\wamp\www\OMA_envios\lib\Cake\Core\App.php(943): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2017-04-05 17:54:43 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /home/verifyLogin
+Stack Trace:
+#0 C:\wamp\www\OMA_envios\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\wamp\www\OMA_envios\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\wamp\www\OMA_envios\lib\Cake\Model\Model.php(3626): ConnectionManager::getDataSource('default')
+#3 C:\wamp\www\OMA_envios\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 C:\wamp\www\OMA_envios\lib\Cake\Model\Model.php(3653): Model->setSource('users')
+#5 C:\wamp\www\OMA_envios\lib\Cake\Model\Model.php(3031): Model->getDataSource()
+#6 C:\wamp\www\OMA_envios\lib\Cake\Model\Model.php(3003): Model->_readDataSource('first', Array)
+#7 C:\wamp\www\OMA_envios\app\Controller\HomeController.php(62): Model->find('first', Array)
+#8 [internal function]: HomeController->verifyLogin()
+#9 C:\wamp\www\OMA_envios\lib\Cake\Controller\Controller.php(491): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#10 C:\wamp\www\OMA_envios\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#11 C:\wamp\www\OMA_envios\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(HomeController), Object(CakeRequest))
+#12 C:\wamp\www\OMA_envios\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#13 {main}
