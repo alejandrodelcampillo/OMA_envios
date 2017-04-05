@@ -290,7 +290,11 @@ border-top: 1px solid #d6d6d6;
 }
 
 .img-logo{
-    width: 10%;
+    width: 20%;
+    margin-top: -2%
+}
+.nav {
+    height: 80px;
 }
 
 
