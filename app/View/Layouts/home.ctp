@@ -41,7 +41,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <body>
        <!-- NAV SECTION -->
          <div class="navbar navbar-inverse navbar-fixed-top">
-       
+    
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -69,6 +69,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     <!--HOME SECTION-->
     <div id="home-sec">   
     <div class="container"  >
+       HOOOOOOOOOOLAAAAAAAAAAAAA
         <div class="row text-center">
             <div  class="col-md-12" >
                 <span class="head-main" >OMA</span>

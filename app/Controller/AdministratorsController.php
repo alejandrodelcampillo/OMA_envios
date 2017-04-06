@@ -36,6 +36,7 @@ class AdministratorsController extends AppController {
 
 	public function index(){
 		$this->layout="admin";
+		$this->set('title_for_layout', 'OMA Envios | Administrador');
 
 		$user=$this->User->find('first',array(
 				'conditions' => array(

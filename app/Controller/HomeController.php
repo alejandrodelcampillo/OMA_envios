@@ -41,10 +41,12 @@ class HomeController extends AppController {
 
 
 	public function index(){
-		$this->layout='home';
+		$this->set('title_for_layout', 'OMA Envios | Tu Distribuidor');
 	}
 
-	public function login(){}
+	public function login(){
+		$this->set('title_for_layout', 'OMA Envios | Login');
+	}
 
 	public function verifyLogin(){
 		$autoRender=false;
@@ -60,7 +62,8 @@ class HomeController extends AppController {
 		));
 
 		if(count($user)>0){
-			$password=Security::hash($password,'md5');
+			//$password=Security::hash($password,'md5');
+
 			if ($user["User"]["password"]==$password) {
 				$success=1;
 				$user=$user['User'];
@@ -79,7 +82,8 @@ class HomeController extends AppController {
 		if($success > 0) {
 			$this->redirect(array('controller'=>'administrators', 'action'=>'index'));
 		} else {
-			$this->Flash->set(__('El usuario o la contrase&ntilde;a son inv&aacute;lidos. Por favor, int&eacute;ntelo nuevamente.'));
+			$this->Flash->danger('El usuario o la contraseña son inválidos. Por favor, inténtelo nuevamente', array(
+			    'key' => 'positive'));
 			$this->redirect(array('action' => 'login'));
 		}
 	}
