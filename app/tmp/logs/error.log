@@ -2126,3 +2126,94 @@ Stack Trace:
 #11 C:\wamp\www\OMA_envios\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(HomeController), Object(CakeRequest))
 #12 C:\wamp\www\OMA_envios\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #13 {main}
+2017-04-06 02:54:45 Error: [MissingControllerException] Controller class FormController could not be found.
+Exception Attributes: array (
+  'class' => 'FormController',
+  'plugin' => NULL,
+)
+Request URL: /form.html
+Stack Trace:
+#0 C:\wamp\www\OMA_envios\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-04-06 07:29:43 Error: [MissingActionException] Action ShipmentsController::0() could not be found.
+Exception Attributes: array (
+  'controller' => 'ShipmentsController',
+  'action' => '0',
+)
+Request URL: /Shipments/0
+Stack Trace:
+#0 C:\wamp\www\OMA_envios\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 C:\wamp\www\OMA_envios\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(ShipmentsController), Object(CakeRequest))
+#2 C:\wamp\www\OMA_envios\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-04-06 07:29:59 Error: [MissingActionException] Action ShipmentsController::1() could not be found.
+Exception Attributes: array (
+  'controller' => 'ShipmentsController',
+  'action' => '1',
+)
+Request URL: /Shipments/1
+Stack Trace:
+#0 C:\wamp\www\OMA_envios\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 C:\wamp\www\OMA_envios\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(ShipmentsController), Object(CakeRequest))
+#2 C:\wamp\www\OMA_envios\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-04-06 07:30:39 Error: [MissingActionException] Action ShipmentsController::1() could not be found.
+Exception Attributes: array (
+  'controller' => 'ShipmentsController',
+  'action' => '1',
+)
+Request URL: /Shipments/1.json
+Stack Trace:
+#0 C:\wamp\www\OMA_envios\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 C:\wamp\www\OMA_envios\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(ShipmentsController), Object(CakeRequest))
+#2 C:\wamp\www\OMA_envios\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-04-06 07:32:26 Error: [MissingActionException] Action ShipmentsController::1() could not be found.
+Exception Attributes: array (
+  'controller' => 'ShipmentsController',
+  'action' => '1',
+)
+Request URL: /Shipments/1
+Stack Trace:
+#0 C:\wamp\www\OMA_envios\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 C:\wamp\www\OMA_envios\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(ShipmentsController), Object(CakeRequest))
+#2 C:\wamp\www\OMA_envios\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-04-06 12:09:08 Error: [MissingControllerException] Controller class FormController could not be found.
+Exception Attributes: array (
+  'class' => 'FormController',
+  'plugin' => NULL,
+)
+Request URL: /form.html
+Stack Trace:
+#0 C:\wamp\www\OMA_envios\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-04-06 12:09:22 Error: [MissingControllerException] Controller class FormAdvancedController could not be found.
+Exception Attributes: array (
+  'class' => 'FormAdvancedController',
+  'plugin' => NULL,
+)
+Request URL: /form_advanced.html
+Stack Trace:
+#0 C:\wamp\www\OMA_envios\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-04-06 12:12:19 Error: Fatal Error (4): syntax error, unexpected '$this' (T_VARIABLE), expecting function (T_FUNCTION) in [C:\wamp\www\OMA_envios\app\Controller\AdministratorsController.php, line 36]
+2017-04-06 12:12:19 Error: [FatalErrorException] syntax error, unexpected '$this' (T_VARIABLE), expecting function (T_FUNCTION)
+Request URL: /administrators
+Stack Trace:
+#0 C:\wamp\www\OMA_envios\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\wamp\www\OMA...', 36)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\wamp\www\OMA...', 36, Array)
+#2 C:\wamp\www\OMA_envios\lib\Cake\Core\App.php(970): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\wamp\www\OMA...', 36, Array)
+#3 C:\wamp\www\OMA_envios\lib\Cake\Core\App.php(943): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-04-06 12:12:19 Error: Fatal Error (4): syntax error, unexpected '$this' (T_VARIABLE), expecting function (T_FUNCTION) in [C:\wamp\www\OMA_envios\app\Controller\AdministratorsController.php, line 36]
+2017-04-06 12:12:19 Error: [FatalErrorException] syntax error, unexpected '$this' (T_VARIABLE), expecting function (T_FUNCTION)
+Request URL: /administrators
+Stack Trace:
+#0 C:\wamp\www\OMA_envios\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\wamp\www\OMA...', 36)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\wamp\www\OMA...', 36, Array)
+#2 C:\wamp\www\OMA_envios\lib\Cake\Core\App.php(970): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\wamp\www\OMA...', 36, Array)
+#3 C:\wamp\www\OMA_envios\lib\Cake\Core\App.php(943): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

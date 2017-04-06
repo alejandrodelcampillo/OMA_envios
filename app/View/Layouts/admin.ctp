@@ -47,7 +47,7 @@
                                 </li>
                                 <li><a><i class="fa fa-cube"></i> Envíos <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="form.html">Todos</a></li>
+                                        <li><a href="/shipments">Todos</a></li>
                                         <li><a href="form_advanced.html">Pendientes</a></li>
                                         <li><a href="form_advanced.html">Procesados</a></li>
                                     </ul>

@@ -36,7 +36,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
+        <li><a href="/home#about">Info</a></li>
+        <li><a href="/home#servicios">Servicios</a></li>
         <li><a href="/home/login">Iniciar Sesión</a></li>
+
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -44,13 +47,12 @@
      <!--END NAV SECTION -->
         <div id="content">
             <?php echo $this->Flash->render('positive') ?>
-
             <?php echo $this->fetch('content'); ?>
 
         </div>      
     <!--FOOTER SECTION -->
     <div id="footer">
-        2014 www.yourdomain.com | All Right Reserved  
+        2017 OMA Envios | TODOS LOS DERECHOS RESERVADOS
          
     </div>
     <!-- END FOOTER SECTION -->

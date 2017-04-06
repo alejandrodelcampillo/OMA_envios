@@ -90,5 +90,13 @@ public $components = array('RequestHandler');
             '_serialize' => array('message')
         ));
     }
+
+    public function consultarTarifa(){
+       // $this->autoRender=false;
+         $this->set(array(
+            'message' => $message,
+            '_serialize' => array('message')
+        ));
+    }
 }
 
