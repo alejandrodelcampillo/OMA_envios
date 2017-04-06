@@ -32,9 +32,13 @@ App::uses('AppController', 'Controller');
  */
 class AdministratorsController extends AppController {
 
+	public function beforeFilter() {
+	 	parent::beforeFilter();
+    }	
+
 	public $uses=array('User');
 
-	public function index(){
+	public function admin_index(){
 		$this->layout="admin";
 		$this->set('title_for_layout', 'OMA Envios | Administrador');
 

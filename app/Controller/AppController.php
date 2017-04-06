@@ -44,7 +44,7 @@ class AppController extends Controller {
     );
 
     public function beforeFilter() {
-        // $this->printWithFormat("beforeFilter", true);
+        // $this->printWithFormat("beforeFilter", false);
         date_default_timezone_set('America/Caracas');
 
         $controllerName = $this->request->params["controller"];
@@ -58,6 +58,7 @@ class AppController extends Controller {
 
         $this->Auth->loginAction = array('controller'=>'home', 'action'=>'login', 'admin' => false);
         $this->Auth->logoutAction = array('controller'=>'home', 'action'=>'index', 'admin' => false);
+        $this->Auth->authorize = 'controller';
         $this->Auth->authError = 'Usted no tiene permisos para acceder al sistema.';
 
         $user = $this->Auth->user();

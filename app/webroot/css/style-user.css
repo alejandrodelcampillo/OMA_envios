@@ -52,6 +52,10 @@ section {
 .form-control {
         background-color: rgba(255, 255, 255, 0);
 }
+
+textarea{
+	resize: none;
+}
 /* ===========================================================
    NAVBAR CHANGES   
    ============================================================*/
@@ -60,9 +64,11 @@ section {
 }
 
 .navbar-inverse {
-background: #fff;
-min-height: 60px;
-padding-top: 5px;
+	background: #fff;
+	min-height: 60px;
+	padding-top: 5px;
+	border-radius: 0px;
+	margin-bottom: 0px;
 
 }
 
@@ -95,6 +101,11 @@ color: #000;
 }
 .navbar-toggle {
     background-color: black;
+}
+
+.navbar-inverse .navbar-right{
+
+	padding: 12px;
 }
 
 /*=======================================
@@ -315,9 +326,17 @@ border-top: 1px solid #d6d6d6;
 }
 
 #login{
-    padding: 100px;
+    padding: 50px;
 }
 
+#loginContainer{
+	padding-right: 40px; 
+}
+
+#registerContainer{
+	border-left: 1px solid #B3B3B3;
+	padding-left: 40px; 
+}
 
 
 

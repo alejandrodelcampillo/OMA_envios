@@ -20,6 +20,7 @@
  */
 
 App::uses('AppController', 'Controller');
+App::uses('Role','Model');
 
 /**
  * Application Controller
@@ -32,7 +33,7 @@ App::uses('AppController', 'Controller');
  */
 class HomeController extends AppController {
 
-	public $uses=array('User');
+	public $uses=array('User','Company');
 
     public function beforeFilter() {
 	 	parent::beforeFilter();
@@ -42,6 +43,20 @@ class HomeController extends AppController {
 
 	public function index(){
 		$this->set('title_for_layout', 'OMA Envios | Tu Distribuidor');
+
+		if(!empty($this->Auth->user())){
+
+			$user=$this->User->find('first',array(
+					'conditions' => array(
+							'User.id' => $this->Auth->user('id')
+					),
+					'recursive' => -1,
+					'fields' => array('User.name','User.last_name')
+			));
+			
+			$this->set(compact('user'));
+
+		}
 	}
 
 	public function login(){
@@ -62,7 +77,7 @@ class HomeController extends AppController {
 		));
 
 		if(count($user)>0){
-			//$password=Security::hash($password,'md5');
+			$password=Security::hash($password,'md5');
 
 			if ($user["User"]["password"]==$password) {
 				$success=1;
@@ -80,7 +95,11 @@ class HomeController extends AppController {
 		}
 		
 		if($success > 0) {
-			$this->redirect(array('controller'=>'administrators', 'action'=>'index'));
+			if ($this->Auth->user('role_id')==Role::ADMINISTRADOR) {
+				$this->redirect('/admin');
+			}else{
+				$this->redirect(array('action'=>'index'));				
+			}
 		} else {
 			$this->Flash->danger('El usuario o la contraseña son inválidos. Por favor, inténtelo nuevamente', array(
 			    'key' => 'positive'));
@@ -88,7 +107,77 @@ class HomeController extends AppController {
 		}
 	}
 
-	
+	public function saveRegistry() {
+		$this->autoRender=false;
+
+		$success=0;
+		$dataToCreate=array();
+
+		$name=$this->request->data['name'];
+		$last_name=$this->request->data['last_name'];
+		$email=$this->request->data['email'];
+		$pass=$this->request->data['pass'];
+		$company_name=$this->request->data['company_name'];
+		$rif=$this->request->data['rif'];
+		$description=$this->request->data['description'];
+
+		$user=$this->User->find('first',array(
+			'conditions' => array('User.email' => $this->request->data['Users']['email']),
+			'recursive' => -1
+		));
+
+		if(empty($user)) {
+			$pass=Security::hash($pass,'md5');
+
+			$dataToCreate=array(
+				'User' => array(
+					'name' => $name,
+					'last_name' => $last_name,
+					'email' => $email,
+					'password' => $pass,
+					'role_id' => Role::EMPRESA
+				),
+				'Company' => array(
+					'company_name' => $company_name,
+					'rif' => $rif,
+					'description' => $description			
+				)
+				
+			);
+
+			$success=$this->User->saveAll($dataToCreate);
+
+			if ($success) {
+				$user=$this->User->find('first',array(
+					'conditions' => array('User.email' => $email),
+					'recursive' => -1
+				));
+				$user=$user['User'];
+
+				unset($user["password"]);
+				$this->Session->write('Auth.User',$user);
+			}
+
+		}else{
+			$success=-1;
+		}
+
+		if($success){
+			$this->redirect(array('controller' => 'home', 'action' => 'index'));
+		}elseif($success=-1) {
+			$this->Flash->danger('Ya exite el correo introducido', array(
+			    'key' => 'positive'));
+			$this->redirect(array('action' => 'login'));
+		}{
+			$this->Flash->danger('Ha ocurrido un error, intentelo nuevamente', array(
+			    'key' => 'positive'));
+			$this->redirect(array('action' => 'login'));			
+		}
+
+
+	}
+
+		
 	public function logout(){
 		$this->autoRender = false;
 

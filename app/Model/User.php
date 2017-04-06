@@ -3,6 +3,7 @@ App::uses('AppModel', 'Model');
 /**
  * User Model
  *
+ * @property Company $Company
  * @property Role $Role
  * @property Shipment $Shipment
  */
@@ -17,6 +18,21 @@ class User extends AppModel {
 
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
+
+/**
+ * hasOne associations
+ *
+ * @var array
+ */
+	public $hasOne = array(
+		'Company' => array(
+			'className' => 'Company',
+			'foreignKey' => 'user_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);
 
 /**
  * belongsTo associations

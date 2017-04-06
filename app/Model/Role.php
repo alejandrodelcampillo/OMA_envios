@@ -14,6 +14,8 @@ class Role extends AppModel {
  */
 	public $displayField = 'name';
 
+	const ADMINISTRADOR=1;
+	const EMPRESA=2;
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
 
