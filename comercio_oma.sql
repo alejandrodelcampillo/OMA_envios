@@ -189,3 +189,7 @@ DROP COLUMN `username`;
 
 ALTER TABLE `users`
 ADD COLUMN `last_name`  varchar(255) NOT NULL AFTER `name`;
+
+ALTER TABLE `users`
+MODIFY COLUMN `adress`  varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL AFTER `email`,
+MODIFY COLUMN `number_phone`  int(11) NULL AFTER `adress`;
