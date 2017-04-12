@@ -148,14 +148,9 @@ class HomeController extends AppController {
 			$success=$this->User->saveAll($dataToCreate);
 
 			if ($success) {
-				$user=$this->User->find('first',array(
-					'conditions' => array('User.email' => $email),
-					'recursive' => -1
-				));
-				$user=$user['User'];
-
-				unset($user["password"]);
-				$this->Session->write('Auth.User',$user);
+				$this->Flash->success('Usuario registrado correctamente', array(
+			    'key' => 'positive'));
+			$this->redirect(array('action' => 'login'));
 			}
 
 		}else{
