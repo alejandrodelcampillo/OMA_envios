@@ -99,6 +99,23 @@ CREATE TABLE `zones` (
   `rate_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `companies`
+--
+
+CREATE TABLE `companies` (
+`id`  int(11) NOT NULL AUTO_INCREMENT ,
+`company_name`  varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ,
+`rif`  varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ,
+`description`  varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ,
+`user_id`  int(11) NOT NULL ,
+`created`  datetime NULL DEFAULT NULL ,
+`modified`  datetime NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+);
 --
 -- Índices para tablas volcadas
 --
