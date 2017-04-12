@@ -44,7 +44,7 @@ class HomeController extends AppController {
 	public function index(){
 		$this->set('title_for_layout', 'OMA Envios | Tu Distribuidor');
 
-		if(!empty($this->Auth->user())){
+		if($this->Auth->user()){
 
 			$user=$this->User->find('first',array(
 					'conditions' => array(
@@ -126,7 +126,7 @@ class HomeController extends AppController {
 			'recursive' => -1
 		));
 
-		if(empty($user)) {
+		if(!$user) {
 			$pass=Security::hash($pass,'md5');
 
 			$dataToCreate=array(
