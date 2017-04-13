@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-03-2017 a las 00:46:55
+-- Tiempo de generación: 13-04-2017 a las 18:36:51
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.23
 
@@ -19,6 +19,22 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `comercio_oma`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `companies`
+--
+
+CREATE TABLE `companies` (
+  `id` int(11) NOT NULL,
+  `company_name` varchar(255) NOT NULL,
+  `rif` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -61,6 +77,10 @@ CREATE TABLE `shipments` (
   `shipping_cost` float NOT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
+  `status` varchar(255) NOT NULL,
+  `name_receiver` varchar(255) NOT NULL,
+  `phone_receiver` varchar(255) NOT NULL,
+  `Dest_address` text NOT NULL,
   `user_id` int(11) NOT NULL,
   `zone_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -73,11 +93,11 @@ CREATE TABLE `shipments` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `adress` varchar(255) NOT NULL,
-  `number_phone` int(11) NOT NULL,
+  `adress` varchar(255) DEFAULT NULL,
+  `number_phone` int(11) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
@@ -99,26 +119,15 @@ CREATE TABLE `zones` (
   `rate_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `companies`
---
-
-CREATE TABLE `companies` (
-`id`  int(11) NOT NULL AUTO_INCREMENT ,
-`company_name`  varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ,
-`rif`  varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ,
-`description`  varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ,
-`user_id`  int(11) NOT NULL ,
-`created`  datetime NULL DEFAULT NULL ,
-`modified`  datetime NULL DEFAULT NULL ,
-PRIMARY KEY (`id`)
-);
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `companies`
+--
+ALTER TABLE `companies`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `rates`
@@ -142,7 +151,8 @@ ALTER TABLE `shipments`
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indices de la tabla `zones`
@@ -154,6 +164,11 @@ ALTER TABLE `zones`
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
+--
+-- AUTO_INCREMENT de la tabla `companies`
+--
+ALTER TABLE `companies`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `rates`
 --
@@ -182,14 +197,3 @@ ALTER TABLE `zones`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-ALTER TABLE `users`
-DROP COLUMN `username`;
-
-ALTER TABLE `users`
-ADD COLUMN `last_name`  varchar(255) NOT NULL AFTER `name`;
-
-ALTER TABLE `users`
-MODIFY COLUMN `adress`  varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL AFTER `email`,
-MODIFY COLUMN `number_phone`  int(11) NULL AFTER `adress`;
