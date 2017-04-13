@@ -34,16 +34,25 @@ public $components = array('RequestHandler');
 
     public function index() {
     	$this->autoRender = false;
-
-        $shipments = $this->Shipment->find('all');
-        
+        //El role del usuario logueado
+        $role = $this->Auth->user('role_id');
+        //Verificamos si el usuario es administrador o comercio
+        if ($role == 1) {
+            echo "Entro 1";
+            $shipments = $this->Shipment->find('all');
+        }else{
+            //Obtenemos el id del usuario logueado
+            echo $role;
+            $auth = $this->Auth->user('id');
+            $shipments = $this->Shipment->find('all',array('conditions'=>array('Shipment.user_id'=>$auth)));
+        }
         return json_encode($shipments);
 
         $this->set(array(
             'shipments' => $shipments,
             '_serialize' => array('shipments')
         ));
-    }
+    }    
 
     public function view($id) {
         $shipment = $this->Shipment->findById($id);
