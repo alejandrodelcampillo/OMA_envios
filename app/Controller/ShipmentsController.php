@@ -38,7 +38,6 @@ public $components = array('RequestHandler');
         $role = $this->Auth->user('role_id');
         //Verificamos si el usuario es administrador o comercio
         if ($role == 1) {
-            echo "Entro 1";
             $shipments = $this->Shipment->find('all');
         }else{
             //Obtenemos el id del usuario logueado

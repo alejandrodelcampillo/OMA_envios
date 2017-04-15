@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<?php echo $this->Html->charset(); ?>
-	<title>
+    <?php echo $this->Html->charset(); ?>
+    <title>
         <?php echo $this->fetch('title'); ?>
-	</title>
-	<?php
-		echo $this->Html->meta('icon');
+    </title>
+    <?php
+        echo $this->Html->meta('icon');
 
-		echo $this->Html->css('bootstrap.min');
-		echo $this->Html->css('font-awesome.min');
-		echo $this->Html->css('custom.min');
+        echo $this->Html->css('bootstrap.min');
+        echo $this->Html->css('font-awesome.min');
+        echo $this->Html->css('custom.min');
 
 
-		echo $this->fetch('meta');
-		//echo $this->fetch('css');
-		echo $this->fetch('script');
-	?>
+        echo $this->fetch('meta');
+        //echo $this->fetch('css');
+        echo $this->fetch('script');
+        echo $this->Html->script('jquery.min');
+    ?>
+    <script type="text/javascript">var myBaseUrl = '<?php echo $this->Html->url; ?>';</script>
+
 </head>
 <body class="nav-md">
     <div class="container body">
@@ -30,7 +33,7 @@
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                        	<?php echo $this->Html->image('OMA_logo.png', ['alt' => 'OMA_logo', 'class' => 'img-circle profile_img']); ?>
+                            <?php echo $this->Html->image('OMA_logo.png', ['alt' => 'OMA_logo', 'class' => 'img-circle profile_img']); ?>
                         </div>
                         <div class="profile_info">
                             <span>Bienvenido.</span>
@@ -45,13 +48,7 @@
                             <ul class="nav side-menu">
                                 <li><a><i class="fa fa-home"></i> Home</a>
                                 </li>
-                                <li><a><i class="fa fa-cube"></i> Envíos <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="/shipments">Todos</a></li>
-                                        <li><a href="form_advanced.html">Pendientes</a></li>
-                                        <li><a href="form_advanced.html">Procesados</a></li>
-                                    </ul>
-                                </li>
+                                <li><?= $this->Html->link('<i class="fa fa-cube"></i> Envíos', '/admin/shipments', ['escape'=>false, '_full'=> true]) ?></li>
                                 <li><a><i class="fa fa-wpforms"></i> Reportes</a></li>
                                 <li><a><i class="fa fa-file-text-o"></i> Log</a>
                                 </li>
@@ -101,18 +98,22 @@
             <!-- /top navigation -->
 
             <div class="right_col" role="main">
-            	<div class="row tile_count">
-            		<?php //echo $this->element('sql_dump'); ?>
- 				</div>
-    		</div>
+                <div class="row tile_count">
+                    <div id="content">
+                        <?php echo $this->Flash->render('positive') ?>
+                        <?php echo $this->fetch('content'); ?>
+
+                    </div>      
+                </div>
+            </div>
         </div>
   </div>
+    <?php 
+    
+    echo $this->Html->script('bootstrap.min');
+    echo $this->Html->script('custom.min');
+    ?>
 
 
-<?php 
-	echo $this->Html->script('jquery.min');
-	echo $this->Html->script('bootstrap.min');
-	echo $this->Html->script('custom.min');
-?>
 </body>
 </html>

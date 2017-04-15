@@ -32,25 +32,38 @@ App::uses('AppController', 'Controller');
  */
 class AdministratorsController extends AppController {
 
+	public $uses=array('User');
 	public function beforeFilter() {
 	 	parent::beforeFilter();
+
     }	
 
-	public $uses=array('User');
 
 	public function admin_index(){
 		$this->layout="admin";
 		$this->set('title_for_layout', 'OMA Envios | Administrador');
-
 		$user=$this->User->find('first',array(
-				'conditions' => array(
-						'User.id' => $this->Auth->user('id')
-				),
-				'recursive' => -1,
-				'fields' => array('User.name','User.last_name')
-		));
-		
+			'conditions' => array(
+					'User.id' => $this->Auth->user('id')
+			),
+			'recursive' => -1,
+			'fields' => array('User.name','User.last_name')
+			));
 		$this->set(compact('user'));
+	}
+
+	public function admin_list_shipments(){
+		$this->layout="admin";
+		$this->set('title_for_layout', 'OMA Envios | Administrador');
+		$user=$this->User->find('first',array(
+			'conditions' => array(
+					'User.id' => $this->Auth->user('id')
+			),
+			'recursive' => -1,
+			'fields' => array('User.name','User.last_name')
+			));
+		$this->set(compact('user'));
+
 	}
 
 }

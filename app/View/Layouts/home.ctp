@@ -69,7 +69,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     <!--HOME SECTION-->
     <div id="home-sec">   
     <div class="container"  >
-       HOOOOOOOOOOLAAAAAAAAAAAAA
         <div class="row text-center">
             <div  class="col-md-12" >
                 <span class="head-main" >OMA</span>
