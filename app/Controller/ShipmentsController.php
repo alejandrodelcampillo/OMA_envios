@@ -19,6 +19,8 @@
  */
 
 App::uses('AppController', 'Controller');
+App::uses('Role','Model');
+
 
 /**
  * Static content controller
@@ -37,7 +39,7 @@ public $components = array('RequestHandler');
         //El role del usuario logueado
         $role = $this->Auth->user('role_id');
         //Verificamos si el usuario es administrador o comercio
-        if ($role == 1) {
+        if ($role == Role::ADMINISTRADOR) {
             $shipments = $this->Shipment->find('all');
         }else{
             //Obtenemos el id del usuario logueado
@@ -47,18 +49,12 @@ public $components = array('RequestHandler');
         }
         return json_encode($shipments);
 
-        $this->set(array(
-            'shipments' => $shipments,
-            '_serialize' => array('shipments')
-        ));
     }    
 
     public function view($id) {
+        $this->autoRender = false;
         $shipment = $this->Shipment->findById($id);
-        $this->set(array(
-            'shipment' => $Shipment,
-            '_serialize' => array('Shipment')
-        ));
+        return json_encode($shipment);
     }
 
     public function add() {
