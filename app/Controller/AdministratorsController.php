@@ -49,6 +49,7 @@ class AdministratorsController extends AppController {
 			'recursive' => -1,
 			'fields' => array('User.name','User.last_name')
 			));
+
 		$this->set(compact('user'));
 	}
 

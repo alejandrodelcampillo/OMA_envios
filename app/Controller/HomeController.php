@@ -93,12 +93,11 @@ class HomeController extends AppController {
 			$user = array();
 			$success = -1;
 		}
-		
 		if($success > 0) {
 			if ($this->Auth->user('role_id')==Role::ADMINISTRADOR) {
 				$this->redirect('/admin');
 			}else{
-				$this->redirect(array('action'=>'index'));				
+				$this->redirect('/admin');				
 			}
 		} else {
 			$this->Flash->danger('El usuario o la contraseña son inválidos. Por favor, inténtelo nuevamente', array(

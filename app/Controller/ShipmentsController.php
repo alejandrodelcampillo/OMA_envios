@@ -45,7 +45,10 @@ public $components = array('RequestHandler');
             //Obtenemos el id del usuario logueado
             echo $role;
             $auth = $this->Auth->user('id');
-            $shipments = $this->Shipment->find('all',array('conditions'=>array('Shipment.user_id'=>$auth)));
+            $shipments = $this->Shipment->find('all',
+                array('conditions'=>array('Shipment.user_id'=>$auth))/*, 
+                'fields' => array('User.name','User.last_name')*/
+                );
         }
         return json_encode($shipments);
 

@@ -4796,3 +4796,13 @@ ul.notifications {
 }
 
 /** /Dropzone.js **/
+
+.btn-oma{
+  background-color: rgba(38, 185, 154, 0.88);
+  border-color: rgba(38, 185, 154, 1);
+  color:white;
+}
+
+.btn-oma:hover{
+  background-color: rgba(38, 185, 154, 0.8);
+}
