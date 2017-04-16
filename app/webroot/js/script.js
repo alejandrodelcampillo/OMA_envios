@@ -40,10 +40,9 @@
                "<li class = 'list-group-item'><strong>Teléfono del destinatario:</strong> "+data.Shipment.phone_receiver+"</li>" +
                "<li class = 'list-group-item'><strong>Dirección destino:</strong> "+data.Shipment.Dest_address+"</li>" +
                "<li class = 'list-group-item'><strong>Cantidad de ítems en paquete:</strong> "+data.Shipment.quantity+"</li>" +
-               "<li class = 'list-group-item'><strong>Peso:</strong> "+data.Shipment.weigth+"</li>" +
+               "<li class = 'list-group-item'><strong>Peso:</strong> "+data.Shipment.weigth+" Kg. </li>" +
                "<li class = 'list-group-item'><strong>Status:</strong> "+data.Shipment.status+"</li>"  +
                "<li class = 'list-group-item list-group-item-success'><strong>Monto a pagar:</strong> "+data.Shipment.shipping_cost+"</li>";
-        
        $('#detallesEnvio').empty().append(content);
         console.log(data);
      });
