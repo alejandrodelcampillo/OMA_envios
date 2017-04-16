@@ -42,7 +42,7 @@
                "<li class = 'list-group-item'><strong>Cantidad de ítems en paquete:</strong> "+data.Shipment.quantity+"</li>" +
                "<li class = 'list-group-item'><strong>Peso:</strong> "+data.Shipment.weigth+" Kg. </li>" +
                "<li class = 'list-group-item'><strong>Status:</strong> "+data.Shipment.status+"</li>"  +
-               "<li class = 'list-group-item list-group-item-success'><strong>Monto a pagar:</strong> "+data.Shipment.shipping_cost+"</li>";
+               "<li class = 'list-group-item list-group-item-success'><strong>Monto a pagar:</strong> "+data.Shipment.shipping_cost+" Bs.</li>";
        $('#detallesEnvio').empty().append(content);
         console.log(data);
      });

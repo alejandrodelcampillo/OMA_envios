@@ -1,3 +1,5 @@
+<h3>Lista de Envíos</h3>
+<p>Pronto estará disponible el filtro a través de búsqueda.</p>
 <div class="x_content">
 <div class="table-responsive">
   <table class="table table-striped jambo_table">

@@ -46,9 +46,10 @@
                         <div class="menu_section">
                             <h3>Menú</h3>
                             <ul class="nav side-menu">
-                                <li><a><i class="fa fa-home"></i> Home</a>
+                                <li><?= $this->Html->link('<i class="fa fa-home"></i> Resumen', '/admin', ['escape'=>false, '_full'=> true]) ?></li>
                                 </li>
                                 <li><?= $this->Html->link('<i class="fa fa-cube"></i> Envíos', '/admin/shipments', ['escape'=>false, '_full'=> true]) ?></li>
+                                <li><a><i class="fa fa-usd"></i> Caulcular Tarifa</a></li>
                                 <li><a><i class="fa fa-wpforms"></i> Reportes</a></li>
                                 <li><a><i class="fa fa-file-text-o"></i> Log</a>
                                 </li>
