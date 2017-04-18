@@ -98,13 +98,12 @@
 
             </div>
                  <div class="col-md-6 ">
-                     <h1 >JHON DEO ALEX</h1>
-                     <h4>WEB DESIGNER & DEVELOPER</h4>
+                     <h1>OMA ev&iacute;os</h1>
+                     <h4>Consulte el costo de env&iacute;o</h4>
                      <p>
-                                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                         Curabitur nec nisl odio. Mauris vehicula at nunc id posuere.
+                        Con los datos del producto que desees enviar pdemos darte un costo apr&oacute;ximado del env&iacute;o.
                                 </p>
-                       <a href="#" class="btn btn-primary btn-lg">DOWNLOAD MY RESUME</a>
+                       <a href="/calculate-rate" class="btn btn-primary btn-lg">Calcular tarifa</a>
                  </div>
                   </div>
                 

@@ -94,11 +94,7 @@ class HomeController extends AppController {
 			$success = -1;
 		}
 		if($success > 0) {
-			if ($this->Auth->user('role_id')==Role::ADMINISTRADOR) {
-				$this->redirect('/admin');
-			}else{
-				$this->redirect('/admin');				
-			}
+			$this->redirect('/admin');
 		} else {
 			$this->Flash->danger('El usuario o la contraseña son inválidos. Por favor, inténtelo nuevamente', array(
 			    'key' => 'positive'));
@@ -121,7 +117,7 @@ class HomeController extends AppController {
 		$description=$this->request->data['description'];
 
 		$user=$this->User->find('first',array(
-			'conditions' => array('User.email' => $this->request->data['Users']['email']),
+			'conditions' => array('User.email' => $this->request->data['email']),
 			'recursive' => -1
 		));
 
@@ -147,9 +143,16 @@ class HomeController extends AppController {
 			$success=$this->User->saveAll($dataToCreate);
 
 			if ($success) {
-				$this->Flash->success('Usuario registrado correctamente', array(
-			    'key' => 'positive'));
-			$this->redirect(array('action' => 'login'));
+
+				$user=$this->User->find('first',array(
+					'conditions' => array('User.email' => $this->request->data['email']),
+					'recursive' => -1
+				));
+
+				$user=$user['User'];
+				unset($user['password']);				
+				$this->Session->write('Auth.User', $user);				
+
 			}
 
 		}else{
@@ -157,12 +160,14 @@ class HomeController extends AppController {
 		}
 
 		if($success){
-			$this->redirect(array('controller' => 'home', 'action' => 'index'));
+			$this->Flash->success('Usuario registrado correctamente', array(
+			    'key' => 'positive'));
+			$this->redirect(array('controller' => 'administrators', 'action' => 'index'));
 		}elseif($success=-1) {
 			$this->Flash->danger('Ya exite el correo introducido', array(
 			    'key' => 'positive'));
 			$this->redirect(array('action' => 'login'));
-		}{
+		}else{
 			$this->Flash->danger('Ha ocurrido un error, intentelo nuevamente', array(
 			    'key' => 'positive'));
 			$this->redirect(array('action' => 'login'));			

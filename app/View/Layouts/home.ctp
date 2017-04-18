@@ -444,7 +444,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <?php 
 	echo $this->Html->script('jquery.min');
 	echo $this->Html->script('bootstrap.min');
-	echo $this->Html->script('custom-user');
+  echo $this->Html->script('custom-user');
+  echo $this->Html->script('jqueryForm');
+	echo $this->Html->script('functionsShipments');
 ?>
 </body>
 </html>

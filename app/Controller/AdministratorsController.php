@@ -39,9 +39,10 @@ class AdministratorsController extends AppController {
     }	
 
 
-	public function admin_index(){
+	public function index(){
 		$this->layout="admin";
 		$this->set('title_for_layout', 'OMA Envios | Administrador');
+
 		$user=$this->User->find('first',array(
 			'conditions' => array(
 					'User.id' => $this->Auth->user('id')
@@ -53,7 +54,7 @@ class AdministratorsController extends AppController {
 		$this->set(compact('user'));
 	}
 
-	public function admin_list_shipments(){
+	public function listShipments(){
 		$this->layout="admin";
 		$this->set('title_for_layout', 'OMA Envios | Administrador');
 		$user=$this->User->find('first',array(

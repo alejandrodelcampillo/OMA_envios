@@ -34,6 +34,14 @@ class ShipmentsController extends AppController {
 
 public $components = array('RequestHandler');
 
+public $uses= array('Zone');
+
+
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('calculateRate','returnRate');
+    }   
+
     public function index() {
     	$this->autoRender = false;
         //El role del usuario logueado
@@ -98,12 +106,47 @@ public $components = array('RequestHandler');
         ));
     }
 
-    public function consultarTarifa(){
-       // $this->autoRender=false;
-         $this->set(array(
-            'message' => $message,
-            '_serialize' => array('message')
-        ));
+    public function calculateRate(){
+        $this->set('title_for_layout', 'OMA Envios | Calcular tarifa');
+        
+        $zones=$this->Zone->find('all',array(
+            'recursive' => -1,
+            'fields' => array('Zone.id','Zone.description')
+            ));
+
+        $this->set(compact('zones'));
+    }
+
+    public function returnRate(){
+       // $this->printWithFormat($this->request->data);
+        $pricePerWeight=2000;
+
+        $origin=$this->request->data['origin'];
+        $destiny=$this->request->data['destiny'];
+        $weight=$this->request->data['weight'];
+
+        $zonePrice=$this->Zone->find('first',array(
+            'conditions' => array('Zone.id' => $destiny),
+            'recursive' => -1,
+            'joins' => array(
+                    array(
+                        'table' => 'rates',
+                        'alias' => 'Rate',
+                        'type' => 'INNER',
+                        'conditions' => array(
+                            'Rate.id = Zone.rate_id'
+                        )
+                    )
+            ),
+            'fields' => array('Rate.price')
+            ));
+
+        $zonePrice=$zonePrice['Rate']['price'];
+
+        $finalPrice=($weight*$pricePerWeight)+$zonePrice;
+
+        $this->set(compact('finalPrice'));
+        
     }
 }
 

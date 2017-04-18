@@ -27,8 +27,9 @@
  */
 	Router::connect('/', array('controller' => 'home', 'action' => 'index'));
 
-	Router::connect('/admin', array('controller' => 'administrators', 'action' => 'index', 'admin' => true));
-	Router::connect('/admin/shipments', array('controller' => 'administrators', 'action' => 'list_shipments', 'admin'=>true));
+	Router::connect('/admin', array('controller' => 'administrators', 'action' => 'index'));
+	Router::connect('/admin/shipments', array('controller' => 'administrators', 'action' => 'listShipments'));
+	Router::connect('/calculate-rate', array('controller' => 'shipments', 'action' => 'calculateRate'));
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */
