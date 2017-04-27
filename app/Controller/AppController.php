@@ -69,7 +69,7 @@ class AppController extends Controller {
             $isLogin = true;
             $userLogin = $user;
 
-            // $this->printWithFormat($userLogin,true);
+             //$this->printWithFormat($userLogin,true);
 
             if(array_key_exists("role_id", $userLogin) && isset($userLogin["role_id"]) && (intval($userLogin["role_id"]) == 1)) {
                 $isAdmin = true;

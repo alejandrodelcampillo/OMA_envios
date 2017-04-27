@@ -42,7 +42,7 @@
           <li><a href="/home/login">Iniciar Sesión / Registrarse</a></li>
         <?php  }else{ ?>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $user['User']['name']." ".$user['User']['last_name']; ?><span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $userLogin['name']." ".$userLogin['last_name']; ?><span class="caret"></span></a>
               <ul class="dropdown-menu">
               <li><a href="#">Perfil</a></li>
               <li><a href="/home/logout">Cerrar Sesi&oacute;n</a></li>
