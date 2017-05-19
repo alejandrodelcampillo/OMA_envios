@@ -58,7 +58,7 @@ class AppController extends Controller {
 
         $this->Auth->loginAction = array('controller'=>'home', 'action'=>'login', 'admin' => false);
         $this->Auth->logoutAction = array('controller'=>'home', 'action'=>'index', 'admin' => false);
-        $this->Auth->authorize = 'controller';
+        $this->Auth->authorize = 'Controller';
         $this->Auth->authError = 'Usted no tiene permisos para acceder al sistema.';
 
         $user = $this->Auth->user();

@@ -20,6 +20,7 @@
 
 App::uses('AppController', 'Controller');
 App::uses('Role','Model');
+App::uses('User','Model');
 
 
 /**
@@ -36,7 +37,6 @@ public $components = array('RequestHandler');
 
 public $uses= array('Zone');
 
-
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('calculateRate','returnRate');
@@ -45,9 +45,12 @@ public $uses= array('Zone');
     public function index() {
     	$this->autoRender = false;
         //El role del usuario logueado
+          $this->loadModel('Shipment');
         $role = $this->Auth->user('role_id');
+
         //Verificamos si el usuario es administrador o comercio
         if ($role == Role::ADMINISTRADOR) {
+          
             $shipments = $this->Shipment->find('all');
         }else{
             //Obtenemos el id del usuario logueado
@@ -64,11 +67,13 @@ public $uses= array('Zone');
 
     public function view($id) {
         $this->autoRender = false;
+        $this->loadModel('Shipment');
         $shipment = $this->Shipment->findById($id);
         return json_encode($shipment);
     }
 
     public function add() {
+        $this->loadModel('Shipment');
         $this->Shipment->create();
         if ($this->Shipment->save($this->request->data)) {
             $message = 'Saved';
@@ -82,6 +87,7 @@ public $uses= array('Zone');
     }
 
     public function edit($id) {
+        $this->loadModel('Shipment');
         $this->Shipment->id = $id;
         if ($this->Shipment->save($this->request->data)) {
             $message = 'Saved';
@@ -95,6 +101,7 @@ public $uses= array('Zone');
     }
 
     public function delete($id) {
+        $this->loadModel('Shipment');
         if ($this->Shipment->delete($id)) {
             $message = 'Deleted';
         } else {
@@ -108,6 +115,19 @@ public $uses= array('Zone');
 
     public function calculateRate(){
         $this->set('title_for_layout', 'OMA Envios | Calcular tarifa');
+        $role = $this->Auth->user('role_id');
+        if ($this->Auth->user('id')){
+            $this->loadModel('User');
+            $user=$this->User->find('first',array(
+            'conditions' => array(
+                    'User.id' => $this->Auth->user('id')
+            ),
+            'recursive' => -1,
+            'fields' => array('User.name','User.last_name')
+            ));
+            $this->set(compact('user'));
+            $this->layout='admin';
+        }
         
         $zones=$this->Zone->find('all',array(
             'recursive' => -1,
@@ -119,6 +139,18 @@ public $uses= array('Zone');
 
     public function returnRate(){
        // $this->printWithFormat($this->request->data);
+        if ($this->Auth->user('id')){
+            $this->loadModel('User');
+            $user=$this->User->find('first',array(
+            'conditions' => array(
+                    'User.id' => $this->Auth->user('id')
+            ),
+            'recursive' => -1,
+            'fields' => array('User.name','User.last_name')
+            ));
+            $this->set(compact('user'));
+            $this->layout='admin';
+        }
         $pricePerWeight=2000;
 
         $origin=$this->request->data['origin'];
