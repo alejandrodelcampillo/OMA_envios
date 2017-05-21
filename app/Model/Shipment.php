@@ -3,17 +3,11 @@ App::uses('AppModel', 'Model');
 /**
  * Shipment Model
  *
+ * @property ShipmentState $ShipmentState
  * @property User $User
  * @property Zone $Zone
  */
 class Shipment extends AppModel {
-
-/**
- * Display field
- *
- * @var string
- */
-	public $displayField = 'id';
 
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -24,6 +18,13 @@ class Shipment extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
+		'ShipmentState' => array(
+			'className' => 'ShipmentState',
+			'foreignKey' => 'shipment_state_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 		'User' => array(
 			'className' => 'User',
 			'foreignKey' => 'user_id',

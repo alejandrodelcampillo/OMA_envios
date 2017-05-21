@@ -32,7 +32,7 @@ App::uses('AppController', 'Controller');
  */
 class AdministratorsController extends AppController {
 
-	public $uses=array('User');
+	public $uses=array('User','Shipment');
 	public function beforeFilter() {
 	 	parent::beforeFilter();
 
