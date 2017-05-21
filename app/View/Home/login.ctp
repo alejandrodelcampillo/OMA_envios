@@ -85,6 +85,12 @@
 							<label>Rif</label>
 				        	<input type="text" class="form-control" placeholder="Rif" name="data[rif]">
 				        </div>
+					</div>					
+					<div class="col-md-offset-1 col-lg-offset-1 col-xs-9 col-sm-9 col-md-9 col-lg-9">
+						<div class="form-group">
+							<label>Código Postal</label>
+				        	<input type="number" class="form-control" placeholder="1010" name="data[zip_code]">
+				        </div>
 					</div>
 				</div>
 				<div class="row">	

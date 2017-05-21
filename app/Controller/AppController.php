@@ -113,4 +113,31 @@ class AppController extends Controller {
             die();
         }
     }
+
+    public function calcTarif($origin, $destiny, $weight){
+       // $pricePerGram = 2;
+        if ($origin >= 1000 and $origin <= 9000 and $destiny >= 1000 and $destiny <= 9000  ){
+            if ($weight >= 100) {
+                $finalPrice = 3500 + $weight; //* $pricePerGram;
+                $diference_zips = abs($origin - $destiny);
+                    if ($diference_zips > 1000 and $diference_zips <= 3000)
+                        $finalPrice = $finalPrice * 1.50;
+                    elseif ($diference_zips > 3000 and $diference_zips <= 5000) 
+                        $finalPrice = $finalPrice * 1.60;
+                    elseif ($diference_zips > 5000 and $diference_zips <= 7000) 
+                        $finalPrice= $finalPrice * 1.70;
+                    
+                    if ($finalPrice < 3900){
+                        $finalPrice = 3900;
+                    }
+                return $finalPrice;
+            }else{
+
+                return -1;
+                                  
+            } 
+        }else{
+            return -2;
+        }
+    }
 }

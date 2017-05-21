@@ -40,6 +40,18 @@ public $uses= array('Zone');
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('calculateRate','returnRate');
+        if ($this->Auth->user('id')){
+            $this->loadModel('User');
+            $user=$this->User->find('first',array(
+            'conditions' => array(
+                    'User.id' => $this->Auth->user('id')
+            ),
+            'recursive' => -1,
+            'fields' => array('User.name','User.last_name', 'User.role_id')
+            ));
+            $this->set(compact('user'));
+            $this->layout='admin';
+        }
     }   
 
     public function index() {
@@ -115,70 +127,54 @@ public $uses= array('Zone');
 
     public function calculateRate(){
         $this->set('title_for_layout', 'OMA Envios | Calcular tarifa');
-        $role = $this->Auth->user('role_id');
         if ($this->Auth->user('id')){
-            $this->loadModel('User');
-            $user=$this->User->find('first',array(
+        $this->loadModel('Companie');
+        $zip_code=$this->Companie->find('first',array(
             'conditions' => array(
-                    'User.id' => $this->Auth->user('id')
+                    'Companie.user_id' => $this->Auth->user('id')
             ),
             'recursive' => -1,
-            'fields' => array('User.name','User.last_name')
+            'fields' => array('Companie.zip_code')
             ));
-            $this->set(compact('user'));
-            $this->layout='admin';
+        $this->set(compact('zip_code'));
         }
-        
-        $zones=$this->Zone->find('all',array(
-            'recursive' => -1,
-            'fields' => array('Zone.id','Zone.description')
-            ));
-
-        $this->set(compact('zones'));
     }
+
 
     public function returnRate(){
        // $this->printWithFormat($this->request->data);
-        if ($this->Auth->user('id')){
-            $this->loadModel('User');
-            $user=$this->User->find('first',array(
-            'conditions' => array(
-                    'User.id' => $this->Auth->user('id')
-            ),
-            'recursive' => -1,
-            'fields' => array('User.name','User.last_name')
-            ));
-            $this->set(compact('user'));
-            $this->layout='admin';
-        }
-        $pricePerWeight=2000;
+        if ($this->request->is('post')){
 
-        $origin=$this->request->data['origin'];
-        $destiny=$this->request->data['destiny'];
-        $weight=$this->request->data['weight'];
-
-        $zonePrice=$this->Zone->find('first',array(
-            'conditions' => array('Zone.id' => $destiny),
-            'recursive' => -1,
-            'joins' => array(
-                    array(
-                        'table' => 'rates',
-                        'alias' => 'Rate',
-                        'type' => 'INNER',
-                        'conditions' => array(
-                            'Rate.id = Zone.rate_id'
-                        )
-                    )
-            ),
-            'fields' => array('Rate.price')
-            ));
-
-        $zonePrice=$zonePrice['Rate']['price'];
-
-        $finalPrice=($weight*$pricePerWeight)+$zonePrice;
-
-        $this->set(compact('finalPrice'));
-        
+            $origin=$this->request->data['origin'];
+            $destiny=$this->request->data['destiny'];
+            $weight=$this->request->data['weight'];
+             $finalPrice = $this->calcTarif($origin, $destiny, $weight);
+            if ($finalPrice > 0){
+                 $this->set(compact('finalPrice'));
+            }elseif ($finalPrice == -1){
+                $this->Flash->danger('El peso menor de envío es de 100 gramos', array(
+                'key' => 'positive'));
+                $this->redirect(array('action' => 'calculateRate'));
+            }elseif ($finalPrice == -2) {
+               $this->Flash->danger('Uno de los códigos postales es muy corto o muy largo, verifique sus datos', array(
+                    'key' => 'positive'));
+                $this->redirect(array('action' => 'calculateRate'));
+            }
+        }elseif($this->request->is('get')){
+            $this->autoRender=false;
+            $origin= $this->request->params['origin'];
+            $destiny=$this->request->params['destiny'];
+            $weight=$this->request->params['weight'];
+            
+            $finalPrice = $this->calcTarif($origin, $destiny, $weight);
+            if ($finalPrice > 0){
+                return json_encode("{'monto_tarifa':'".$finalPrice."'}");
+            }elseif ($finalPrice == -1){
+                    return json_encode("{'msg':'El peso minimo para el paquete es de 100 gramos'}");                 
+            }else
+                return json_encode("{'msg':'Al menos uno de los codigos postales es muy corto o muy largo, verifique sus datos'}");
+        }        
     }
+    
 }
 

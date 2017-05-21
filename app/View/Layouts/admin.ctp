@@ -51,6 +51,7 @@
                                 <li><?= $this->Html->link('<i class="fa fa-cube"></i> Envíos', '/admin/shipments', ['escape'=>false, '_full'=> true]) ?></li>
                                 <li><?= $this->Html->link('<i class="fa fa-usd"></i> Calcular Tarifa', '/calculate-rate', ['escape'=>false, '_full'=> true]) ?></li>
                                 <li><a><i class="fa fa-wpforms"></i> Reportes</a></li>
+                                <li><a><i class="fa fa-money"></i> Facturas</a></li>
                                 <li><a><i class="fa fa-file-text-o"></i> Log</a>
                                 </li>
                             </ul>

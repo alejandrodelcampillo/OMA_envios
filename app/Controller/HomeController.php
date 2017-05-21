@@ -115,6 +115,7 @@ class HomeController extends AppController {
 		$company_name=$this->request->data['company_name'];
 		$rif=$this->request->data['rif'];
 		$description=$this->request->data['description'];
+		$zip_code=$this->request->data['zip_code'];
 
 		$user=$this->User->find('first',array(
 			'conditions' => array('User.email' => $this->request->data['email']),
@@ -135,7 +136,8 @@ class HomeController extends AppController {
 				'Company' => array(
 					'company_name' => $company_name,
 					'rif' => $rif,
-					'description' => $description			
+					'description' => $description,
+					'zip_code' => $zip_code		
 				)
 				
 			);
