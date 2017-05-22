@@ -40,6 +40,35 @@ class HomeController extends AppController {
 	 	$this->Auth->allow();
     }	
 
+    //Genera un cadena de 10 digitos aleatoria
+    public function generateRandomString($length = 10) { 
+	    return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length); 
+	}
+
+	public function giveToken(){
+		$this->autoRender = false;
+		//Obtenemos el email del usuario logueado
+		//$email = $this->Auth->user('email');
+		//Obtenemos el password del usuario logueado
+		//$password = $this->Auth->user('password');
+		
+
+		//Llamada a funcion que retorna el token
+		$token = $this->generateRandomString(10);
+		$data = Array(
+			"token" => $token
+		);
+		
+		//Obtenemos el ID del usuario logueado
+		$id = $this->Auth->user('id');
+		//Se asigna token al usuario especifico.
+		$this->User->updateAll(
+		    array('User.token' => "'".$token."'"),
+		    array('User.id' => $id)
+		);				
+
+		return json_encode($data);
+	}
 
 	public function index(){
 		$this->set('title_for_layout', 'OMA Envios | Tu Distribuidor');

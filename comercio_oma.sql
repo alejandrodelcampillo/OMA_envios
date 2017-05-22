@@ -116,6 +116,7 @@ CREATE TABLE `users` (
   `adress` varchar(255) DEFAULT NULL,
   `number_phone` int(11) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
+  `token` varchar(255) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   `role_id` int(11) NOT NULL,
@@ -126,11 +127,11 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'Oscar', 'Valecillos', 'oscarvalecillosg@gmail.com', null, null, 'e10adc3949ba59abbe56e057f20f883e', '2017-04-16 16:17:39', '2017-04-16 16:17:39', '1');
-INSERT INTO `users` VALUES ('2', 'Larry', 'Page', 'lp@gmail.com', null, null, 'e10adc3949ba59abbe56e057f20f883e', '2017-04-16 16:54:53', '2017-04-16 16:54:55', '2');
-INSERT INTO `users` VALUES ('7', 'Karla', 'Pereira', 'kp@gmail.com', null, null, 'e10adc3949ba59abbe56e057f20f883e', '2017-04-16 17:48:23', '2017-04-16 17:48:23', '2');
-INSERT INTO `users` VALUES ('8', '', '', '', null, null, 'd41d8cd98f00b204e9800998ecf8427e', '2017-04-26 21:41:08', '2017-04-26 21:41:08', '2');
-INSERT INTO `users` VALUES ('9', 'Daniel', 'Guarecuco', 'daniel@gmail.com', null, null, 'e10adc3949ba59abbe56e057f20f883e', '2017-04-26 21:42:13', '2017-04-26 21:42:13', '2');
+INSERT INTO `users` VALUES ('1', 'Oscar', 'Valecillos', 'oscarvalecillosg@gmail.com', null, null, 'e10adc3949ba59abbe56e057f20f883e', null, '2017-04-16 16:17:39', '2017-04-16 16:17:39', '1');
+INSERT INTO `users` VALUES ('2', 'Larry', 'Page', 'lp@gmail.com', null, null, 'e10adc3949ba59abbe56e057f20f883e', null, '2017-04-16 16:54:53', '2017-04-16 16:54:55', '2');
+INSERT INTO `users` VALUES ('7', 'Karla', 'Pereira', 'kp@gmail.com', null, null, 'e10adc3949ba59abbe56e057f20f883e', null, '2017-04-16 17:48:23', '2017-04-16 17:48:23', '2');
+INSERT INTO `users` VALUES ('8', '', '', '', null, null, 'd41d8cd98f00b204e9800998ecf8427e', null, '2017-04-26 21:41:08', '2017-04-26 21:41:08', '2');
+INSERT INTO `users` VALUES ('9', 'Daniel', 'Guarecuco', 'daniel@gmail.com', null, null, 'e10adc3949ba59abbe56e057f20f883e', null, '2017-04-26 21:42:13', '2017-04-26 21:42:13', '2');
 
 -- ----------------------------
 -- Table structure for zones
