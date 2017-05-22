@@ -6,7 +6,7 @@
     <thead>
       <tr class="headings">
         <th class="column-title">#Guía </th>
-        <th class="column-title">Compañía</th>
+        <th class="column-title">Responsable</th>
         <th class="column-title">Destinatario</th>
         <th class="column-title">Teléfono</th>
         <th class="column-title">Status</th>

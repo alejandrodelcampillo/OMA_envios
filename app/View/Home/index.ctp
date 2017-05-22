@@ -24,18 +24,18 @@
                         <div class="panel-heading">
                             <h4 class="panel-title panel-title-adjust">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                    <i class="fa fa-plus"></i> SMALL INTRODUCTION
+                                    <i class="fa fa-plus"></i> TARIFAS POR PESO
                                 </a>
                             </h4>
                         </div>
                         <div id="collapseOne" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <h3>Lorem ipsum dolor sit amet</h3>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-           Vivamus sagittis egestas mauris ut vehicula. Cras viverra ac orci ac aliquam.
-           Nulla eget condimentum mauris, eget tincidunt est. Quisque in luctus ligula.
-           Aenean eget ligula id nulla ornare placerat vel a nulla. 
-         
+                                <ul>
+                                  <li>Menos de 500 grs <spam>- 3500 Bs.</span></li>
+                                  <li>Entre 500 grs y 2000 grs <span>- 4500 Bs.</span> </li>
+                                  <li>Entre 2001 grs y 4000 grs <span>- 5600 Bs.</span></li>
+                                  <li>Entre 4001 grs y 10000 grs <span>- 7000 Bs.</span></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -43,66 +43,22 @@
                         <div class="panel-heading">
                             <h4 class="panel-title panel-title-adjust">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                    <i class="fa fa-plus"></i>WORK EXPERIENCE
+                                    <i class="fa fa-plus"></i>PORCENTAJES POR DISTANCIA
                                 </a>
                             </h4>
                         </div>
                         <div id="collapseTwo" class="panel-collapse collapse">
                             <div class="panel-body">
-                                  <h3>Lorem ipsum dolor sit amet</h3>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-           Vivamus sagittis egestas mauris ut vehicula. Cras viverra ac orci ac aliquam.
-           Nulla eget condimentum mauris, eget tincidunt est. Quisque in luctus ligula.
-           Aenean eget ligula id nulla ornare placerat vel a nulla. 
+                                  Hacemos un cálculo de la distancia entre el municipio y ciudad de origen y el municipio y ciudad destino. Agregamos un máximo porcentaje de 60 % si es de punta a punta del país. 
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h4 class="panel-title panel-title-adjust">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                    <i class="fa fa-plus"></i>PROJECTS OUTLINES
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseThree" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <h3>Lorem ipsum dolor sit amet</h3>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-           Vivamus sagittis egestas mauris ut vehicula. Cras viverra ac orci ac aliquam.
-           Nulla eget condimentum mauris, eget tincidunt est. Quisque in luctus ligula.
-           Aenean eget ligula id nulla ornare placerat vel a nulla. 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title panel-title-adjust">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapsefour">
-                                    <i class="fa fa-plus"></i>ACHIEVEMENTS
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapsefour" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <h3>Lorem ipsum dolor sit amet</h3>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-           Vivamus sagittis egestas mauris ut vehicula. Cras viverra ac orci ac aliquam.
-           Nulla eget condimentum mauris, eget tincidunt est. Quisque in luctus ligula.
-           Aenean eget ligula id nulla ornare placerat vel a nulla. 
-                            </div>
-                        </div>
-                    </div>
-                    
+                  
                 </div>
 
             </div>
                  <div class="col-md-6 ">
-                     <h1>OMA ev&iacute;os</h1>
-                     <h4>Consulte el costo de env&iacute;o</h4>
-                     <p>
-                        Con los datos del producto que desees enviar pdemos darte un costo apr&oacute;ximado del env&iacute;o.
-                                </p>
+                     <h3>CONSULTE EL MONTO ESTIMADO DE SU ENVÍO</h3>
                        <a href="/calculate-rate" class="btn btn-primary btn-lg">Calcular tarifa</a>
                  </div>
                   </div>
@@ -122,10 +78,7 @@
         <div class="col-md-6">
                      
                      <h2>WEB SERVICES</h2>
-                    <p>
-                        Si tienes un Comercio Electrónico, puedes consumir nuestros Web Services.
-                    </p>
-            
+
             <div class="alert alert-info text-center">
                           <h4> ¿Qué ofrecemos? </h4> 
                           <hr>

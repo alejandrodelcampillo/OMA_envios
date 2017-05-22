@@ -155,3 +155,6 @@ INSERT INTO `zones` VALUES ('2', 'Zona 2', 'Sucre', '2017-04-16 17:05:40', '2017
 INSERT INTO `zones` VALUES ('3', 'Zona 3', 'El Hatillo', '2017-04-16 17:05:47', '2017-04-16 17:05:49', '2');
 INSERT INTO `zones` VALUES ('4', 'Zona 4', 'Baruta', '2017-04-16 17:05:51', '2017-04-16 17:05:53', '2');
 INSERT INTO `zones` VALUES ('5', 'Zona 5', 'Libertador', '2017-04-16 17:05:56', '2017-04-16 17:06:00', '2');
+
+
+ALTER TABLE `companies` ADD `zip_code` varchar(255); 

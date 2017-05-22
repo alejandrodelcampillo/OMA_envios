@@ -30,6 +30,10 @@
 	Router::connect('/admin', array('controller' => 'administrators', 'action' => 'index'));
 	Router::connect('/admin/shipments', array('controller' => 'administrators', 'action' => 'listShipments'));
 	Router::connect('/calculate-rate', array('controller' => 'shipments', 'action' => 'calculateRate'));
+	Router::connect('/calcular-tarifa/:origin/:destiny/:weight', array('controller' => 'shipments', 'action' => 'returnRate'));
+	Router::connect('/new-distribution', array('controller' => 'shipments', 'action' => 'newDistribution'));
+	Router::connect('/solicitarDistribucion/:name/:phone/:quantity/:weight/:origin/:destiny/:address', array('controller' => 'shipments', 'action' => 'requestDistribution'));
+
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */

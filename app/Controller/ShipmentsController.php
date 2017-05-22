@@ -20,6 +20,8 @@
 
 App::uses('AppController', 'Controller');
 App::uses('Role','Model');
+App::uses('User','Model');
+App::uses('ShipmentState','Model');
 
 
 /**
@@ -34,20 +36,34 @@ class ShipmentsController extends AppController {
 
 public $components = array('RequestHandler');
 
-public $uses= array('Zone');
-
+public $uses= array('Zone','Company','Shipment');
 
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('calculateRate','returnRate');
+        if ($this->Auth->user('id')){
+            $this->loadModel('User');
+            $user=$this->User->find('first',array(
+            'conditions' => array(
+                    'User.id' => $this->Auth->user('id')
+            ),
+            'recursive' => -1,
+            'fields' => array('User.name','User.last_name', 'User.role_id')
+            ));
+            $this->set(compact('user'));
+            $this->layout='admin';
+        }
     }   
 
     public function index() {
     	$this->autoRender = false;
         //El role del usuario logueado
+          $this->loadModel('Shipment');
         $role = $this->Auth->user('role_id');
+
         //Verificamos si el usuario es administrador o comercio
         if ($role == Role::ADMINISTRADOR) {
+          
             $shipments = $this->Shipment->find('all');
         }else{
             //Obtenemos el id del usuario logueado
@@ -64,11 +80,13 @@ public $uses= array('Zone');
 
     public function view($id) {
         $this->autoRender = false;
+        $this->loadModel('Shipment');
         $shipment = $this->Shipment->findById($id);
         return json_encode($shipment);
     }
 
     public function add() {
+        $this->loadModel('Shipment');
         $this->Shipment->create();
         if ($this->Shipment->save($this->request->data)) {
             $message = 'Saved';
@@ -82,6 +100,7 @@ public $uses= array('Zone');
     }
 
     public function edit($id) {
+        $this->loadModel('Shipment');
         $this->Shipment->id = $id;
         if ($this->Shipment->save($this->request->data)) {
             $message = 'Saved';
@@ -95,6 +114,7 @@ public $uses= array('Zone');
     }
 
     public function delete($id) {
+        $this->loadModel('Shipment');
         if ($this->Shipment->delete($id)) {
             $message = 'Deleted';
         } else {
@@ -108,45 +128,167 @@ public $uses= array('Zone');
 
     public function calculateRate(){
         $this->set('title_for_layout', 'OMA Envios | Calcular tarifa');
-        
-        $zones=$this->Zone->find('all',array(
+        if ($this->Auth->user('id')){
+        $this->loadModel('Companie');
+        $zip_code=$this->Companie->find('first',array(
+            'conditions' => array(
+                    'Companie.user_id' => $this->Auth->user('id')
+            ),
             'recursive' => -1,
-            'fields' => array('Zone.id','Zone.description')
+            'fields' => array('Companie.zip_code')
             ));
-
-        $this->set(compact('zones'));
+        $this->set(compact('zip_code'));
+        }
     }
+
 
     public function returnRate(){
        // $this->printWithFormat($this->request->data);
-        $pricePerWeight=2000;
+        if ($this->request->is('post')){
 
-        $origin=$this->request->data['origin'];
-        $destiny=$this->request->data['destiny'];
-        $weight=$this->request->data['weight'];
+            $origin=$this->request->data['origin'];
+            $destiny=$this->request->data['destiny'];
+            $weight=$this->request->data['weight'];
+             $finalPrice = $this->calcTarif($origin, $destiny, $weight);
+            if ($finalPrice > 0){
+                 $this->set(compact('finalPrice'));
+            }elseif ($finalPrice == -1){
+                $this->Flash->danger('El peso menor de envío es de 100 gramos', array(
+                'key' => 'positive'));
+                $this->redirect(array('action' => 'calculateRate'));
+            }elseif ($finalPrice == -2) {
+               $this->Flash->danger('Uno de los códigos postales es muy corto o muy largo, verifique sus datos', array(
+                    'key' => 'positive'));
+                $this->redirect(array('action' => 'calculateRate'));
+            }
+        }elseif($this->request->is('get')){
+            $this->autoRender=false;
+            $origin= $this->request->params['origin'];
+            $destiny=$this->request->params['destiny'];
+            $weight=$this->request->params['weight'];
+            
+            $finalPrice = $this->calcTarif($origin, $destiny, $weight);
+            if ($finalPrice > 0){
+                return json_encode("{'monto_tarifa':'".$finalPrice."'}");
+            }elseif ($finalPrice == -1){
+                    return json_encode("{'msg':'El peso minimo para el paquete es de 100 gramos'}");                 
+            }else
+                return json_encode("{'msg':'Al menos uno de los codigos postales es muy corto o muy largo, verifique sus datos'}");
+        }        
+    }
 
-        $zonePrice=$this->Zone->find('first',array(
-            'conditions' => array('Zone.id' => $destiny),
-            'recursive' => -1,
-            'joins' => array(
-                    array(
-                        'table' => 'rates',
-                        'alias' => 'Rate',
-                        'type' => 'INNER',
-                        'conditions' => array(
-                            'Rate.id = Zone.rate_id'
-                        )
-                    )
+    public function newDistribution(){
+
+        $zip_code=$this->Company->find('first',array(
+            'conditions' => array(
+                    'Company.user_id' => $this->Auth->user('id')
             ),
-            'fields' => array('Rate.price')
+            'recursive' => -1,
+            'fields' => array('Company.zip_code')
             ));
-
-        $zonePrice=$zonePrice['Rate']['price'];
-
-        $finalPrice=($weight*$pricePerWeight)+$zonePrice;
-
-        $this->set(compact('finalPrice'));
+        $this->set(compact('zip_code'));
         
     }
+
+    public function requestDistribution(){
+        $success=0;
+        $this->autoRender=false;
+
+        if ($this->request->is('post')){
+
+            $name=$this->request->data['name'];
+            $phone=$this->request->data['phone'];
+            $quantity=$this->request->data['quantity'];
+            $weight=$this->request->data['weight'];
+            $origin=$this->request->data['origin'];
+            $destiny=$this->request->data['destiny'];
+            $address=$this->request->data['address'];
+            
+            $finalPrice = $this->calcTarif($origin, $destiny, $weight);
+
+            if ($finalPrice > 0){
+                
+                $dataToCreate=array(
+                    'Shipment' => array(
+                        'user_id' => $this->Auth->user('id'),
+                        'name_receiver' => $name,
+                        'phone_receiver' => $phone,
+                        'address' => $address,
+                        'quantity' => $quantity,
+                        'weight' => $weight,
+                        'shipping_cost' => $finalPrice,
+                        'shipment_state_id' => ShipmentState::SOLICITADO,
+                        'zone_id' => 1
+
+                    )
+                );
+
+                $success=$this->Shipment->save($dataToCreate);
+
+                if ($success) {
+                    $this->Flash->success('Su solicitud ha sido recibida. Le informaremos cuando sea procesada', array('key' => 'positive'));
+                    $this->redirect(array('controller'=> 'administrators','action' => 'index'));
+                }else{
+                    $this->Flash->danger('Ha ocurrido un error, vuelva a intentarlo', array(
+                    'key' => 'positive'));
+                    $this->redirect(array('action' => 'newDistribution'));                    
+                }
+
+            }elseif ($finalPrice == -1){
+                $this->Flash->danger('El peso menor de envío es de 100 gramos', array(
+                'key' => 'positive'));
+                $this->redirect(array('action' => 'newDistribution'));
+            }elseif ($finalPrice == -2) {
+               $this->Flash->danger('Uno de los códigos postales es muy corto o muy largo, verifique sus datos', array(
+                    'key' => 'positive'));
+                $this->redirect(array('action' => 'newDistribution'));
+            }
+        }elseif($this->request->is('get')){ 
+
+            $name=$this->request->params['name'];
+            $phone=$this->request->params['phone'];
+            $quantity=$this->request->params['quantity'];
+            $weight=$this->request->params['weight'];
+            $origin=$this->request->params['origin'];
+            $destiny=$this->request->params['destiny'];
+            $address=$this->request->params['address'];
+            
+            $finalPrice = $this->calcTarif($origin, $destiny, $weight);
+
+            if ($finalPrice > 0){
+
+                $dataToCreate=array(
+                    'Shipment' => array(
+                        'user_id' => $this->Auth->user('id'),
+                        'name_receiver' => $name,
+                        'phone_receiver' => $phone,
+                        'address' => $address,
+                        'quantity' => $quantity,
+                        'weight' => $weight,
+                        'shipping_cost' => $finalPrice,
+                        'shipment_state_id' => ShipmentState::SOLICITADO,
+                        'zone_id' => 1
+
+                    )
+                );
+
+                $success=$this->Shipment->save($dataToCreate);
+
+                $id=$this->Shipment->getLastInsertID();
+
+                if ($success) {
+                   return json_encode("{'id_envio:'".$id.",'monto_tarifa':'".$finalPrice."'}");
+                }else{
+                    return json_encode("{'msg':'Los parametros de entrada no estan completos'}");  
+                }
+
+                
+            }elseif ($finalPrice == -1){
+                    return json_encode("{'msg':'El peso minimo para el paquete es de 100 gramos'}");                 
+            }else
+                return json_encode("{'msg':'Al menos uno de los codigos postales es muy corto o muy largo, verifique sus datos'}");
+        }                
+    }
+    
 }
 
