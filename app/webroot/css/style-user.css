@@ -34,6 +34,9 @@ h4 {
     text-align:center;
 }
 
+.text-to-bold{
+    font-weight: bold;
+}
 
 p {
     font-weight:300;

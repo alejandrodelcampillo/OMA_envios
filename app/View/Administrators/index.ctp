@@ -31,3 +31,7 @@
         </div>
     </div>
 </div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <h3>Tu token para usar nuestros servicios:</h3>
+    <span><b><?php echo $user['User']['token']; ?></b></span>
+</div>

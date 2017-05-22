@@ -52,9 +52,9 @@ class HomeController extends AppController {
 		//Obtenemos el password del usuario logueado
 		//$password = $this->Auth->user('password');
 		
-
+		$success=0;
 		//Llamada a funcion que retorna el token
-		$token = $this->generateRandomString(10);
+		$token = $this->generateRandomString(20);
 		$data = Array(
 			"token" => $token
 		);
@@ -62,12 +62,12 @@ class HomeController extends AppController {
 		//Obtenemos el ID del usuario logueado
 		$id = $this->Auth->user('id');
 		//Se asigna token al usuario especifico.
-		$this->User->updateAll(
+		$success=$this->User->updateAll(
 		    array('User.token' => "'".$token."'"),
 		    array('User.id' => $id)
 		);				
 
-		return json_encode($data);
+		return $successs;
 	}
 
 	public function index(){
@@ -113,7 +113,8 @@ class HomeController extends AppController {
 				$user=$user['User'];
 
 				unset($user["password"]);
-				$this->Session->write('Auth.User', $user);				
+				$this->Session->write('Auth.User', $user);
+				$token=$this->giveToken();	
 			}else {
 				$user = array();
 				$success = -2;
@@ -182,7 +183,9 @@ class HomeController extends AppController {
 
 				$user=$user['User'];
 				unset($user['password']);				
-				$this->Session->write('Auth.User', $user);				
+				$this->Session->write('Auth.User', $user);
+				$token=$this->giveToken();	
+
 
 			}
 

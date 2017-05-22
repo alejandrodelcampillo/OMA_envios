@@ -203,27 +203,14 @@ public $uses= array('Zone','Company','Shipment');
             $origin=$this->request->data['origin'];
             $destiny=$this->request->data['destiny'];
             $address=$this->request->data['address'];
+            $id=$this->Auth->user('id');
             
             $finalPrice = $this->calcTarif($origin, $destiny, $weight);
 
             if ($finalPrice > 0){
                 
-                $dataToCreate=array(
-                    'Shipment' => array(
-                        'user_id' => $this->Auth->user('id'),
-                        'name_receiver' => $name,
-                        'phone_receiver' => $phone,
-                        'address' => $address,
-                        'quantity' => $quantity,
-                        'weight' => $weight,
-                        'shipping_cost' => $finalPrice,
-                        'shipment_state_id' => ShipmentState::SOLICITADO,
-                        'zone_id' => 1
 
-                    )
-                );
-
-                $success=$this->Shipment->save($dataToCreate);
+                $success=$this->createShipment($id,$name,$phone,$address,$quantity,$weight,$finalPrice);
 
                 if ($success) {
                     $this->Flash->success('Su solicitud ha sido recibida. Le informaremos cuando sea procesada', array('key' => 'positive'));
@@ -245,6 +232,7 @@ public $uses= array('Zone','Company','Shipment');
             }
         }elseif($this->request->is('get')){ 
 
+            $token=$this->request->params['token'];
             $name=$this->request->params['name'];
             $phone=$this->request->params['phone'];
             $quantity=$this->request->params['quantity'];
@@ -252,27 +240,24 @@ public $uses= array('Zone','Company','Shipment');
             $origin=$this->request->params['origin'];
             $destiny=$this->request->params['destiny'];
             $address=$this->request->params['address'];
+
+            $user=array();
+            $user=$this->User->find('first',array(
+                'conditions' => array(
+                    'User.token' =>$token
+            ),
+                'recursive' => -1,
+                'fields' => array('User.id')
+            ));
+
+            if(!empty($user)){
             
             $finalPrice = $this->calcTarif($origin, $destiny, $weight);
 
             if ($finalPrice > 0){
 
-                $dataToCreate=array(
-                    'Shipment' => array(
-                        'user_id' => $this->Auth->user('id'),
-                        'name_receiver' => $name,
-                        'phone_receiver' => $phone,
-                        'address' => $address,
-                        'quantity' => $quantity,
-                        'weight' => $weight,
-                        'shipping_cost' => $finalPrice,
-                        'shipment_state_id' => ShipmentState::SOLICITADO,
-                        'zone_id' => 1
 
-                    )
-                );
-
-                $success=$this->Shipment->save($dataToCreate);
+                $success=$this->createShipment($user['User']['id'],$name,$phone,$address,$quantity,$weight,$finalPrice);
 
                 $id=$this->Shipment->getLastInsertID();
 
@@ -285,10 +270,15 @@ public $uses= array('Zone','Company','Shipment');
                 
             }elseif ($finalPrice == -1){
                     return json_encode("{'msg':'El peso minimo para el paquete es de 100 gramos'}");                 
-            }else
+            }else{
                 return json_encode("{'msg':'Al menos uno de los codigos postales es muy corto o muy largo, verifique sus datos'}");
-        }                
+            }
+        }else{
+            return json_encode("{'msg':'Token invalido'}");
+        }               
+      }
     }
+    
     
 }
 

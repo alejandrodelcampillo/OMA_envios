@@ -140,4 +140,24 @@ class AppController extends Controller {
             return -2;
         }
     }
+
+    public function createShipment($id,$name,$phone,$address,$quantity,$weight,$finalPrice){
+        $dataToCreate=array(
+            'Shipment' => array(
+                'user_id' => $id,
+                'name_receiver' => $name,
+                'phone_receiver' => $phone,
+                'address' => $address,
+                'quantity' => $quantity,
+                'weight' => $weight,
+                'shipping_cost' => $finalPrice,
+                'shipment_state_id' => ShipmentState::SOLICITADO,
+                'zone_id' => 1
+            )
+        );
+
+        $success=$this->Shipment->save($dataToCreate);
+
+        return $success;
+    }
 }
