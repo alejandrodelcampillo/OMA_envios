@@ -35,38 +35,34 @@ class AdministratorsController extends AppController {
 	public $uses=array('User');
 	public function beforeFilter() {
 	 	parent::beforeFilter();
+	 	$this->layout="admin";
+	 	$user=$this->User->find('first',array(
+			'conditions' => array(
+					'User.id' => $this->Auth->user('id')
+			),
+			'recursive' => -1,
+			'fields' => array('User.name','User.last_name')
+			));
 
+		$this->set(compact('user'));
     }	
 
 
 	public function index(){
-		$this->layout="admin";
 		$this->set('title_for_layout', 'OMA Envios | Administrador');
 
-		$user=$this->User->find('first',array(
-			'conditions' => array(
-					'User.id' => $this->Auth->user('id')
-			),
-			'recursive' => -1,
-			'fields' => array('User.name','User.last_name')
-			));
-
-		$this->set(compact('user'));
+		
 	}
 
 	public function listShipments(){
-		$this->layout="admin";
-		$this->set('title_for_layout', 'OMA Envios | Administrador');
-		$user=$this->User->find('first',array(
-			'conditions' => array(
-					'User.id' => $this->Auth->user('id')
-			),
-			'recursive' => -1,
-			'fields' => array('User.name','User.last_name')
-			));
-		$this->set(compact('user'));
+		$this->set('title_for_layout', 'OMA Envios | Envíos');
 
 	}
 
+	public function listarFacturas(){
+		$this->set('title_for_layout', 'OMA Envíos | Facturación');
+		
+
+	}
 
 }

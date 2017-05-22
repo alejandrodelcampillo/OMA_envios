@@ -5,8 +5,6 @@
         <div  class="col-md-12" >
             <span class="head-main" ></span>
             <h3 class="head-last col-md-8 col-md-offset-2  col-sm-8 col-sm-offset-2">Somos tu distrbuidor de confianza</h3>
-     
-             
         </div>
     </div>
 </div>

@@ -223,7 +223,7 @@ color: #000;
 #home-sec { 
   
     
-background: url(../img/home.jpg) no-repeat 50% 50%;
+background: url(../img/home.png) no-repeat 50% 50%;
 background-attachment: fixed;
 -webkit-background-size: cover;
 -moz-background-size: cover;
@@ -235,6 +235,7 @@ height: auto;
  padding-top:190px;
    min-height:500px;
     color:#fff;
+font-size: 20px; 
 }
 
 .head-main {
@@ -247,10 +248,11 @@ height: auto;
 
 .head-last {
      margin-top:70px;
-    font-size:25px ;
+    font-size:30px ;
     font-weight:900;
     padding:5px 20px 20px 20px;
     padding:5px;
+    color: #888;
 }
 
 /*=======================================
