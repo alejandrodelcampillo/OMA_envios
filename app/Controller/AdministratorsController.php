@@ -32,7 +32,7 @@ App::uses('AppController', 'Controller');
  */
 class AdministratorsController extends AppController {
 
-	public $uses=array('User');
+	public $uses=array('User','Shipment');
 	public function beforeFilter() {
 	 	parent::beforeFilter();
 	 	$this->layout="admin";
@@ -41,7 +41,7 @@ class AdministratorsController extends AppController {
 					'User.id' => $this->Auth->user('id')
 			),
 			'recursive' => -1,
-			'fields' => array('User.name','User.last_name')
+			'fields' => array('User.name','User.last_name','User.token')
 			));
 
 		$this->set(compact('user'));

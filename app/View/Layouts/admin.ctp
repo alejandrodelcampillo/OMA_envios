@@ -27,7 +27,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"> <span>OMA Envíos</span></a>
+                        <a href="/admin" class="site_title"> <span>OMA Envíos</span></a>
                     </div>
                     <div class="clearfix"></div>
                     <!-- menu profile quick info -->
@@ -50,6 +50,7 @@
                                 </li>
                                 <li><?= $this->Html->link('<i class="fa fa-cube"></i> Envíos', '/admin/shipments', ['escape'=>false, '_full'=> true]) ?></li>
                                 <li><?= $this->Html->link('<i class="fa fa-usd"></i> Calcular Tarifa', '/calculate-rate', ['escape'=>false, '_full'=> true]) ?></li>
+                                <li><?= $this->Html->link('<i class="fa fa-paper-plane"></i> Realizar pedido', '/new-distribution', ['escape'=>false, '_full'=> true]) ?></li>                                
                                 <li><a><i class="fa fa-wpforms"></i> Reportes</a></li>
                                 <li><a><i class="fa fa-money"></i> Facturas</a></li>
                                 <li><a><i class="fa fa-file-text-o"></i> Log</a>
