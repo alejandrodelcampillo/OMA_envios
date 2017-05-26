@@ -68,5 +68,20 @@ class AdministratorsController extends AppController {
 
 	}
 
+	public function listBills($date){
+
+		$options = array(
+                    'conditions' => array(
+                    	'and' => array(
+                			'? BETWEEN ? AND ?' => array($date, 'Shipment.created', 'Item.date_end'),
+                	)),
+                    'fields'=>array('Company.*','SUM(`Shipment`.`shipping_cost`) as `cost_sum`'),
+                    'joins' => array('LEFT JOIN `shipments` AS Shipment ON `Shipment`.`user_id` = `Company`.`user_id`'),
+                    'group' => '`Company`.`company_name`',
+                );
+
+                return $this->find('all', $options);
+	}
+
 
 }

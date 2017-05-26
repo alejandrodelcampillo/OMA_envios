@@ -277,7 +277,7 @@ public $uses= array('Zone','Company','Shipment');
             return json_encode("{'msg':'Token invalido'}");
         }               
       }
-    }
+    } 
     
     
 }
