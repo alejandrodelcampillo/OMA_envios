@@ -28,11 +28,13 @@
 	Router::connect('/', array('controller' => 'home', 'action' => 'index'));
 
 	Router::connect('/admin', array('controller' => 'administrators', 'action' => 'index'));
+	Router::connect('/admin/reportes', array('controller' => 'administrators', 'action' => 'reportes'));
+	Router::connect('/admin/lista-reportes', array('controller' => 'administrators', 'action' => 'listar_reportes'));
 	Router::connect('/admin/shipments', array('controller' => 'administrators', 'action' => 'listShipments'));
 	Router::connect('/calculate-rate', array('controller' => 'shipments', 'action' => 'calculateRate'));
 	Router::connect('/calcular-tarifa/:origin/:destiny/:weight', array('controller' => 'shipments', 'action' => 'returnRate'));
 	Router::connect('/new-distribution', array('controller' => 'shipments', 'action' => 'newDistribution'));
-	Router::connect('/solicitarDistribucion/:token/:name/:phone/:quantity/:weight/:origin/:destiny/:address', array('controller' => 'shipments', 'action' => 'requestDistribution'));
+	Router::connect('/solicitar-distribucion/:token/:name/:phone/:quantity/:weight/:origin/:destiny/:address', array('controller' => 'shipments', 'action' => 'requestDistribution'));
 
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
@@ -46,6 +48,7 @@
 */
 	Router::mapResources('shipments');
 	Router::parseExtensions();
+	Router::setExtensions(array('json', 'xml', 'rss', 'pdf'));
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

@@ -20,7 +20,9 @@
  */
 
 App::uses('AppController', 'Controller');
-
+App::uses('Role','Model');
+App::uses('Shipment','Model');
+App::uses('ShipmentState','Model');
 /**
  * Application Controller
  *
@@ -32,6 +34,7 @@ App::uses('AppController', 'Controller');
  */
 class AdministratorsController extends AppController {
 
+	public $components = array('RequestHandler');
 	public $uses=array('User','Shipment');
 	public function beforeFilter() {
 	 	parent::beforeFilter();
@@ -61,8 +64,77 @@ class AdministratorsController extends AppController {
 
 	public function listarFacturas(){
 		$this->set('title_for_layout', 'OMA Envíos | Facturación');
-		
-
 	}
 
+	public function reportes(){
+		$this->set('title_for_layout', 'OMA Envíos | Reportes');
+		$role = $this->Auth->user('role_id');
+		if ($role == Role::ADMINISTRADOR) {
+          
+        }else{
+        	$this->Flash->danger('No tiene permisos para ver reportes', array(
+			    'key' => 'positive'));
+			$this->redirect(array('action' => 'index'));
+        }
+	}
+
+	public function listar_reportes(){
+		$this->set('title_for_layout', 'OMA Envíos | Reportes');
+		$firstDate = $this->request->data['firstDate'];
+		$secondDate = $this->request->data['secondDate'];
+		$this->loadModel('Shipment');
+		$envios_solicitados = sizeof($this->Shipment->find('all', array(
+            'conditions' => array(
+                    'shipment_state_id' => ShipmentState::SOLICITADO,
+                    'created >=' => $firstDate,
+                    'created <=' => $secondDate
+            ),
+            'recursive' => -1
+            )));	
+
+		$envios_enproceso = sizeof($this->Shipment->find('all', array(
+            'conditions' => array(
+                    'shipment_state_id' => ShipmentState::EN_PROCESO,
+                    'created >=' => $firstDate,
+                    'created <=' => $secondDate
+            ),
+            'recursive' => -1
+            )));	
+
+		$envios_enviados = sizeof($this->Shipment->find('all', array(
+            'conditions' => array(
+                    'shipment_state_id' => ShipmentState::ENVIADO,
+                    'created >=' => $firstDate,
+                    'created <=' => $secondDate
+            ),
+            'recursive' => -1
+            )));
+
+		$this->loadModel('User');
+		$clientes = $this->Shipment->find('all', array(
+            'conditions' => array(
+                    'Shipment.created >=' => $firstDate,
+                    'Shipment.created <=' => $secondDate
+            ),
+            'joins' => array(array(
+                        	'table' => 'companies',
+                        	'conditions' => array('Shipment.user_id = companies.user_id' ))),
+            'recursive' => -1,
+            'fields' => array(
+ 				'companies.company_name',
+ 				'companies.rif',
+            	'COUNT(Shipment.id) as CantEnvios'),
+            'group' =>  array('Shipment.user_id'),
+            'order' => array('CantEnvios DESC')
+            ));
+
+		$this->set(compact('clientes'));
+		$this->set(compact('envios_enviados'));
+		$this->set(compact('envios_enproceso'));
+		$this->set(compact('envios_solicitados'));
+		$this->set(compact('firstDate'));
+		$this->set(compact('secondDate'));
+		//TODO: Falta facturas
+
+	}
 }

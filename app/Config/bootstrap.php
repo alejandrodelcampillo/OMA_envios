@@ -109,3 +109,13 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
+
+CakePlugin::load('CakePdf', array('bootstrap' => true, 'routes' => true));
+
+Configure::write('CakePdf', array(
+    'engine' => 'CakePdf.tcpdf',
+    'pageSize' => 'A4',
+    'orientation' => 'portrait',
+));
+
+ 	

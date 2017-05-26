@@ -11,12 +11,15 @@
         echo $this->Html->css('bootstrap.min');
         echo $this->Html->css('font-awesome.min');
         echo $this->Html->css('custom.min');
+        echo $this->Html->css('daterangepicker');
+
 
 
         echo $this->fetch('meta');
         //echo $this->fetch('css');
         echo $this->fetch('script');
         echo $this->Html->script('jquery.min');
+
     ?>
     <script type="text/javascript">var myBaseUrl = '<?php echo $this->Html->url; ?>';</script>
 
@@ -50,8 +53,9 @@
                                 </li>
                                 <li><?= $this->Html->link('<i class="fa fa-cube"></i> Envíos', '/admin/shipments', ['escape'=>false, '_full'=> true]) ?></li>
                                 <li><?= $this->Html->link('<i class="fa fa-usd"></i> Calcular Tarifa', '/calculate-rate', ['escape'=>false, '_full'=> true]) ?></li>
-                                <li><?= $this->Html->link('<i class="fa fa-paper-plane"></i> Realizar pedido', '/new-distribution', ['escape'=>false, '_full'=> true]) ?></li>                                
-                                <li><a><i class="fa fa-wpforms"></i> Reportes</a></li>
+                                <li><?= $this->Html->link('<i class="fa fa-paper-plane"></i> Realizar pedido', '/new-distribution', ['escape'=>false, '_full'=> true]) ?></li>                  
+                                <li><?= $this->Html->link('<i class="fa fa-wpforms"></i> Reportes', '/admin/reportes', ['escape'=>false, '_full'=> true]) ?></li>
+                                <?php  ?>                                
                                 <li><a><i class="fa fa-money"></i> Facturas</a></li>
                                 <li><a><i class="fa fa-file-text-o"></i> Log</a>
                                 </li>
@@ -112,9 +116,11 @@
         </div>
   </div>
     <?php 
-    
-    echo $this->Html->script('bootstrap.min');
-    echo $this->Html->script('custom.min');
+        echo $this->Html->script('bootstrap.min');
+        echo $this->Html->script('custom.min');
+        echo $this->Html->script('moment');
+        echo $this->Html->script('daterangepicker');
+
     ?>
 
 

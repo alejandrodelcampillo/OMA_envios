@@ -149,7 +149,7 @@ class AppController extends Controller {
                 'phone_receiver' => $phone,
                 'address' => $address,
                 'quantity' => $quantity,
-                'weight' => $weight,
+                'weigth' => $weight,
                 'shipping_cost' => $finalPrice,
                 'shipment_state_id' => ShipmentState::SOLICITADO,
                 'zone_id' => 1
@@ -159,5 +159,9 @@ class AppController extends Controller {
         $success=$this->Shipment->save($dataToCreate);
 
         return $success;
+    }
+
+    public function getReports ($startDate, $endDate){
+            
     }
 }
