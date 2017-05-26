@@ -62,8 +62,6 @@ class AdministratorsController extends AppController {
 
 	}
 
-<<<<<<< HEAD
-=======
 	public function listBills($date){
 
 		$options = array(
@@ -78,8 +76,6 @@ class AdministratorsController extends AppController {
 
                 return $this->find('all', $options);
 	}
-
->>>>>>> 2d28385e70de86a361d68f187a14189210981915
 
 	public function reportes(){
 		$this->set('title_for_layout', 'OMA Envíos | Reportes');
