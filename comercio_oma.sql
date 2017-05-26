@@ -158,3 +158,23 @@ INSERT INTO `zones` VALUES ('5', 'Zona 5', 'Libertador', '2017-04-16 17:05:56', 
 
 
 ALTER TABLE `companies` ADD `zip_code` varchar(255); 
+
+-- ----------------------------
+-- Table structure for bills
+-- ----------------------------
+DROP TABLE IF EXISTS `bills`;
+CREATE TABLE `bills` (
+  `id` int(11) NOT NULL,
+  `rif_distributor` varchar(255) NOT NULL,
+  `rif_commerce` varchar(255) NOT NULL,
+  `name_commerce` varchar(255) NOT NULL,
+  `price` float NOT NULL,
+  `deadline` date NOT NULL,
+  `broadcast_date` datetime NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- ----------------------------
+-- Records of bills
+-- ----------------------------
