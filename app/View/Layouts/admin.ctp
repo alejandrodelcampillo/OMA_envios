@@ -55,8 +55,9 @@
                                 <li><?= $this->Html->link('<i class="fa fa-usd"></i> Calcular Tarifa', '/calculate-rate', ['escape'=>false, '_full'=> true]) ?></li>
                                 <li><?= $this->Html->link('<i class="fa fa-paper-plane"></i> Realizar pedido', '/new-distribution', ['escape'=>false, '_full'=> true]) ?></li>                  
                                 <li><?= $this->Html->link('<i class="fa fa-wpforms"></i> Reportes', '/admin/reportes', ['escape'=>false, '_full'=> true]) ?></li>
+
+                                <li><?= $this->Html->link('<i class="fa fa-wpforms"></i> Facturas', '/admin/facturas', ['escape'=>false, '_full'=> true]) ?></li>
                                 <?php  ?>                                
-                                <li><a><i class="fa fa-money"></i> Facturas</a></li>
                                 <li><a><i class="fa fa-file-text-o"></i> Log</a>
                                 </li>
                             </ul>

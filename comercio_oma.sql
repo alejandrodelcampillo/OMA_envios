@@ -178,3 +178,31 @@ CREATE TABLE `bills` (
 -- ----------------------------
 -- Records of bills
 -- ----------------------------
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for shipment_status
+-- ----------------------------
+DROP TABLE IF EXISTS `shipment_status`;
+CREATE TABLE `shipment_status` (
+  `id` int(11) NOT NULL,
+  `name` varchar(250) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of shipment_status
+-- ----------------------------
+INSERT INTO `shipment_status` VALUES ('1', 'Solicitado', '2017-05-21 15:35:21', '2017-05-21 15:35:24');
+INSERT INTO `shipment_status` VALUES ('2', 'En proceso', '2017-05-21 15:35:21', '2017-05-21 15:35:21');
+INSERT INTO `shipment_status` VALUES ('3', 'Enviado', '2017-05-21 15:35:21', '2017-05-21 15:35:21');
+
+ALTER TABLE `shipments`
+add COLUMN `shipment_status_id`   int(11) NOT NULL AFTER `modified`,
+CHANGE COLUMN `Dest_address` `address`  text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL AFTER `phone_receiver`;                        
+
+ALTER TABLE `shipments`
+add COLUMN`shipment_state_id`  int(11) NOT NULL AFTER `modified`;

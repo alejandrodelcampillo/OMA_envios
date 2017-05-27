@@ -25,6 +25,28 @@
 
   };  
 
+  function obtenerFacturas(){
+      route = myBaseUrl + '/lista-factura';
+     $.ajax({
+        url : route,
+        type : 'GET',
+        dataType : 'json',
+      })
+     .done(function(data){
+      content="";
+      for (i=0; i<data.length; i++){
+        content += "<tr class = 'even pointer'>" +
+                  "<td>"+data[i].Company.company.name +"</td>" + 
+                  "<td>"+data[i].Shipment.shipping_cost+"</td>" + 
+                  +"</tr>";
+      }
+        
+       $('#lista-facturas').append(content);
+        console.log(data);
+     });
+
+  };
+
   function obtenerEnvio(elem){
     id= $(elem).attr("value");
     route = myBaseUrl + '/shipments/'+id;

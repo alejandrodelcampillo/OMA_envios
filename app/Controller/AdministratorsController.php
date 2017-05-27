@@ -62,19 +62,44 @@ class AdministratorsController extends AppController {
 
 	}
 
-	public function listBills($date){
+	public function facturas(){
+		$this->set('title_for_layout', 'OMA Envíos | Facturas');
+		$role = $this->Auth->user('role_id');
+		if ($role == Role::ADMINISTRADOR) {
+          
+        }else{
+        	$this->Flash->danger('No tiene permisos para ver facturas', array(
+			    'key' => 'positive'));
+			$this->redirect(array('action' => 'index'));
+        }
+	}
 
+	public function listar_facturas(){
+		//http://localhost:8080/admin/listBills/2017-05-23/2017-05-23
+		$this->set('title_for_layout', 'OMA Envíos | Facturas');
+		$this->loadModel('Shipment');
+		$this->loadModel('Company');
+		$firstDate = $this->request->data['firstDate'];
+		$secondDate = $this->request->data['secondDate'];
+		
 		$options = array(
                     'conditions' => array(
-                    	'and' => array(
-                			'? BETWEEN ? AND ?' => array($date, 'Shipment.created', 'Item.date_end'),
-                	)),
-                    'fields'=>array('Company.*','SUM(`Shipment`.`shipping_cost`) as `cost_sum`'),
-                    'joins' => array('LEFT JOIN `shipments` AS Shipment ON `Shipment`.`user_id` = `Company`.`user_id`'),
-                    'group' => '`Company`.`company_name`',
+		                    'Shipment.created >=' => $firstDate,
+		                    'Shipment.created <=' => $secondDate
+		            ),
+		            'joins' => array(array(
+                        	'table' => 'companies',
+                        	'conditions' => array('Shipment.user_id = companies.user_id' ))),
+                    'fields' =>  array('companies.company_name',
+                    				   'SUM(Shipment.shipping_cost) as cost_sum'),
+                    'group' =>  array('companies.company_name')           
                 );
 
-                return $this->find('all', $options);
+				$companies = $this->Shipment->find('all', $options);
+				echo json_encode($companies);
+				$this->set(compact('companies'));
+				$this->set(compact('firstDate'));
+				$this->set(compact('secondDate'));          
 	}
 
 	public function reportes(){
