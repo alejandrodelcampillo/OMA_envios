@@ -81,8 +81,8 @@ class AdministratorsController extends AppController {
 		$this->loadModel('Company');
 		$firstDate = $this->request->data['firstDate'];
 		$secondDate = $this->request->data['secondDate'];
-		
-		$options = array(
+
+		$companies = $this->Shipment->find('all', array(
                     'conditions' => array(
 		                    'Shipment.created >=' => $firstDate,
 		                    'Shipment.created <=' => $secondDate
@@ -93,10 +93,9 @@ class AdministratorsController extends AppController {
                     'fields' =>  array('companies.company_name',
                     				   'SUM(Shipment.shipping_cost) as cost_sum'),
                     'group' =>  array('companies.company_name')           
-                );
+                ));
+		echo json_encode(($companies)
 
-				$companies = $this->Shipment->find('all', $options);
-				echo json_encode($companies);
 				$this->set(compact('companies'));
 				$this->set(compact('firstDate'));
 				$this->set(compact('secondDate'));          
