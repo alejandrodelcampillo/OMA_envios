@@ -61,7 +61,7 @@ class AdministratorsController extends AppController {
 		$this->set('title_for_layout', 'OMA Envios | Envíos');
 
 	}
-
+	
 	public function facturas(){
 		$this->set('title_for_layout', 'OMA Envíos | Facturas');
 		$role = $this->Auth->user('role_id');
@@ -94,7 +94,7 @@ class AdministratorsController extends AppController {
                     				   'SUM(Shipment.shipping_cost) as cost_sum'),
                     'group' =>  array('companies.company_name')           
                 ));
-		echo json_encode($companies);
+		// echo json_encode($companies);
 
 		$this->set(compact('companies'));
 		$this->set(compact('firstDate'));

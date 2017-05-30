@@ -26,7 +26,7 @@
   };  
 
   function obtenerFacturas(){
-      route = myBaseUrl + '/lista-factura';
+      route = myBaseUrl + '/admin/lista-facturas';
      $.ajax({
         url : route,
         type : 'GET',
@@ -71,5 +71,6 @@
 
 $(document).ready(function(){
   obtenerEnvios();
+  obtenerFacturas();
 });
  
