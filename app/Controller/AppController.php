@@ -105,9 +105,9 @@ class AppController extends Controller {
     }    	
 
 	public function printWithFormat($prin,$va=false) {
-        echo '<pre>';
-        var_dump($prin);
-        echo '</pre>';
+        // echo '<pre>';
+        // var_dump($prin);
+        // echo '</pre>';
         
         if($va) {
             die();

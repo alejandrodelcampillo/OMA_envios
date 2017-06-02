@@ -91,7 +91,7 @@ class AdministratorsController extends AppController {
 		            'joins' => array(array(
                         	'table' => 'companies',
                         	'conditions' => array('Shipment.user_id = companies.user_id' ))),
-                    'fields' =>  array('companies.company_name',
+                    'fields' =>  array('companies.*',
                     				   'SUM(Shipment.shipping_cost) as cost_sum'),
                     'group' =>  array('companies.company_name')           
                 ));

@@ -71,7 +71,7 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'root',
-		'password' => '123456',
+		'password' => '',
 		'database' => 'oma_envios',
 		'prefix' => '',
 		'encoding' => 'utf8',
