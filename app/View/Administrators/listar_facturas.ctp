@@ -12,7 +12,14 @@
         </th>
       </tr>
     </thead>
-    <tbody id ="lista-facturas">      
+    <tbody id ="lista-facturas">  
+      <?php foreach ($companies as $compania) {?>
+        <tr>
+         <td><?php echo $compania['companies']['company_name']; ?></td>
+         <td><?php echo $compania[0]['cost_sum']; ?></td>
+        </tr>  
+      <?php } ;?> 
+
     </tbody>
   </table>
 </div>
