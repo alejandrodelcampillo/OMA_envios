@@ -192,4 +192,16 @@ class AdministratorsController extends AppController {
         }
 	}
 
+	public function downloadLog() {
+		$path= ROOT . DS . 'app' . DS . 'tmp' . DS . 'logs' . DS . 'logEnvios.log';
+        $this->log("Descargando log",'logEnvios');
+
+	    $this->response->file(
+    		$path,
+    		array('download' => true)
+		);
+
+	    return $this->response;
+	}
+
 }

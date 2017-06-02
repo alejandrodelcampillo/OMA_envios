@@ -29,6 +29,7 @@
 
 	Router::connect('/admin', array('controller' => 'administrators', 'action' => 'index'));
 	Router::connect('/admin/logs', array('controller' => 'administrators', 'action' => 'logs'));
+	Router::connect('/admin/descargar-log', array('controller' => 'administrators', 'action' => 'downloadLog'));
 	Router::connect('/admin/facturas', array('controller' => 'administrators', 'action' => 'facturas'));
 	Router::connect('/admin/lista-facturas', array('controller' => 'administrators', 'action' => 'listar_facturas'));
 	Router::connect('/admin/reportes', array('controller' => 'administrators', 'action' => 'reportes'));

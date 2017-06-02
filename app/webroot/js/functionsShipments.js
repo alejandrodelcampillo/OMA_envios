@@ -26,3 +26,4 @@ $("#taxForm").ajaxForm({
 		beforeSubmit:  showRequestReturnRate,  // pre-submit callback 
         success:       showResponseReturnRate  // post-submit callback 
 });
+
