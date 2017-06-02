@@ -94,7 +94,9 @@ class AdministratorsController extends AppController {
                     				   'SUM(Shipment.shipping_cost) as cost_sum'),
                     'group' =>  array('companies.company_name')           
                 ));
-		echo json_encode($companies);
+		//echo json_encode($companies);
+
+		$this->printWithFormat($companies);
 
 		$this->set(compact('companies'));
 		$this->set(compact('firstDate'));

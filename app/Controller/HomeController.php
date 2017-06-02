@@ -52,6 +52,8 @@ class HomeController extends AppController {
 		//Obtenemos el password del usuario logueado
 		//$password = $this->Auth->user('password');
 		
+		$this->log("Generando token",'logEnvios');
+		
 		$success=0;
 		//Llamada a funcion que retorna el token
 		$token = $this->generateRandomString(20);
@@ -95,6 +97,8 @@ class HomeController extends AppController {
 	public function verifyLogin(){
 		$autoRender=false;
 
+		$this->log("Iniciando sesion",'logEnvios');
+
 		$success=0;
 		$email=$this->request->data['email'];
 		$password=$this->request->data['pass'];
@@ -111,6 +115,8 @@ class HomeController extends AppController {
 			if ($user["User"]["password"]==$password) {
 				$success=1;
 				$user=$user['User'];
+				
+				$this->log("Inicio de sesion exitoso",'logEnvios');
 
 				unset($user["password"]);
 				$this->Session->write('Auth.User', $user);
@@ -128,6 +134,9 @@ class HomeController extends AppController {
 		} else {
 			$this->Flash->danger('El usuario o la contraseña son inválidos. Por favor, inténtelo nuevamente', array(
 			    'key' => 'positive'));
+			
+			$this->log("Inicio de sesion exitoso",'logEnvios');
+
 			$this->redirect(array('action' => 'login'));
 		}
 	}
