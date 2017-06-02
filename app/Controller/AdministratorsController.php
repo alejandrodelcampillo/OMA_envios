@@ -82,6 +82,7 @@ class AdministratorsController extends AppController {
 		$firstDate = $this->request->data['firstDate'];
 		$secondDate = $this->request->data['secondDate'];
 
+
 		$companies = $this->Shipment->find('all', array(
                     'conditions' => array(
 		                    'Shipment.created >=' => $firstDate,
@@ -96,6 +97,7 @@ class AdministratorsController extends AppController {
                 ));
 
 		//echo json_encode($companies);
+        $this->log("Listando facturas",'logEnvios');
 
 		$this->printWithFormat($companies);
 
@@ -120,6 +122,8 @@ class AdministratorsController extends AppController {
 		$this->set('title_for_layout', 'OMA Envíos | Reportes');
 		$firstDate = $this->request->data['firstDate'];
 		$secondDate = $this->request->data['secondDate'];
+        $this->log("Listando reportes",'logEnvios');
+
 		$this->loadModel('Shipment');
 		$envios_solicitados = sizeof($this->Shipment->find('all', array(
             'conditions' => array(
@@ -175,4 +179,17 @@ class AdministratorsController extends AppController {
 		//TODO: Falta facturas
 
 	}
+
+	public function logs(){
+		$this->set('title_for_layout', 'OMA Envíos | Logs');
+		$role = $this->Auth->user('role_id');
+		if ($role == Role::ADMINISTRADOR) {
+          
+        }else{
+        	$this->Flash->danger('No tiene permisos para ver Logs', array(
+			    'key' => 'positive'));
+			$this->redirect(array('action' => 'index'));
+        }
+	}
+
 }

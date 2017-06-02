@@ -58,8 +58,7 @@
 
                                 <li><?= $this->Html->link('<i class="fa fa-wpforms"></i> Facturas', '/admin/facturas', ['escape'=>false, '_full'=> true]) ?></li>
                                 <?php  ?>                                
-                                <li><a><i class="fa fa-file-text-o"></i> Log</a>
-                                </li>
+                                <li><?= $this->Html->link('<i class="fa fa-file-text-o"></i> Logs', '/admin/logs', ['escape'=>false, '_full'=> true]) ?></li>
                             </ul>
                         </div>
                     </div>
