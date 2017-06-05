@@ -52,6 +52,8 @@ class HomeController extends AppController {
 		//Obtenemos el password del usuario logueado
 		//$password = $this->Auth->user('password');
 		
+		$this->log("Generando token",'logEnvios');
+		
 		$success=0;
 		//Llamada a funcion que retorna el token
 		$token = $this->generateRandomString(20);
@@ -95,6 +97,8 @@ class HomeController extends AppController {
 	public function verifyLogin(){
 		$autoRender=false;
 
+		$this->log("Iniciando sesion",'logEnvios');
+
 		$success=0;
 		$email=$this->request->data['email'];
 		$password=$this->request->data['pass'];
@@ -111,6 +115,8 @@ class HomeController extends AppController {
 			if ($user["User"]["password"]==$password) {
 				$success=1;
 				$user=$user['User'];
+				
+				$this->log("Inicio de sesion exitoso",'logEnvios');
 
 				unset($user["password"]);
 				$this->Session->write('Auth.User', $user);
@@ -128,6 +134,9 @@ class HomeController extends AppController {
 		} else {
 			$this->Flash->danger('El usuario o la contraseña son inválidos. Por favor, inténtelo nuevamente', array(
 			    'key' => 'positive'));
+			
+			$this->log("Error en inicio: El usuario o la contraseña son invalidos",'logEnvios');
+
 			$this->redirect(array('action' => 'login'));
 		}
 	}
@@ -137,6 +146,8 @@ class HomeController extends AppController {
 
 		$success=0;
 		$dataToCreate=array();
+		$this->log("Iniciando registro",'logEnvios');
+
 
 		$name=$this->request->data['name'];
 		$last_name=$this->request->data['last_name'];
@@ -181,6 +192,8 @@ class HomeController extends AppController {
 					'recursive' => -1
 				));
 
+				$this->log("Registro exitoso",'logEnvios');
+
 				$user=$user['User'];
 				unset($user['password']);				
 				$this->Session->write('Auth.User', $user);
@@ -196,14 +209,23 @@ class HomeController extends AppController {
 		if($success){
 			$this->Flash->success('Usuario registrado correctamente', array(
 			    'key' => 'positive'));
+
+			$this->log("Error en registro: Usuario registrado correctamente",'logEnvios');
+
 			$this->redirect(array('controller' => 'administrators', 'action' => 'index'));
 		}elseif($success=-1) {
-			$this->Flash->danger('Ya exite el correo introducido', array(
+			$this->Flash->danger('Ya existe el correo introducido', array(
 			    'key' => 'positive'));
+
+			$this->log("Error en registro: Ya existe el correo introducido",'logEnvios');
+
 			$this->redirect(array('action' => 'login'));
 		}else{
 			$this->Flash->danger('Ha ocurrido un error, intentelo nuevamente', array(
 			    'key' => 'positive'));
+
+			$this->log("Error en registro: Ha ocurrido un error",'logEnvios');
+
 			$this->redirect(array('action' => 'login'));			
 		}
 
@@ -213,6 +235,8 @@ class HomeController extends AppController {
 		
 	public function logout(){
 		$this->autoRender = false;
+
+		$this->log("Cerrando sesion",'logEnvios');
 
 		$this->Session->delete('Auth.User');
 		$this->Session->destroy();

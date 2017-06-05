@@ -109,6 +109,10 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
+CakeLog::config('logEnvios', array(
+	'engine' => 'FileLog'
+));
+
 
 CakePlugin::load('CakePdf', array('bootstrap' => true, 'routes' => true));
 

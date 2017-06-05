@@ -61,9 +61,11 @@ public $uses= array('Zone','Company','Shipment');
           $this->loadModel('Shipment');
         $role = $this->Auth->user('role_id');
 
+        $this->log("Se listan los envios",'logEnvios');
+
         //Verificamos si el usuario es administrador o comercio
         if ($role == Role::ADMINISTRADOR) {
-          
+            
             $shipments = $this->Shipment->find('all');
         }else{
             //Obtenemos el id del usuario logueado
@@ -81,6 +83,8 @@ public $uses= array('Zone','Company','Shipment');
     public function view($id) {
         $this->autoRender = false;
         $this->loadModel('Shipment');
+        $this->log("Se listan los envios",'logEnvios');
+
         $shipment = $this->Shipment->findById($id);
         return json_encode($shipment);
     }
@@ -130,6 +134,7 @@ public $uses= array('Zone','Company','Shipment');
         $this->set('title_for_layout', 'OMA Envios | Calcular tarifa');
         if ($this->Auth->user('id')){
         $this->loadModel('Companie');
+
         $zip_code=$this->Companie->find('first',array(
             'conditions' => array(
                     'Companie.user_id' => $this->Auth->user('id')
@@ -145,6 +150,8 @@ public $uses= array('Zone','Company','Shipment');
     public function returnRate(){
        // $this->printWithFormat($this->request->data);
         if ($this->request->is('post')){
+
+            $this->log("Calculando tarifa desde plataforma",'logEnvios');
 
             $origin=$this->request->data['origin'];
             $destiny=$this->request->data['destiny'];
@@ -163,6 +170,9 @@ public $uses= array('Zone','Company','Shipment');
             }
         }elseif($this->request->is('get')){
             $this->autoRender=false;
+            $this->log("Calculando tarifa desde api",'logEnvios');
+
+
             $origin= $this->request->params['origin'];
             $destiny=$this->request->params['destiny'];
             $weight=$this->request->params['weight'];
@@ -195,6 +205,7 @@ public $uses= array('Zone','Company','Shipment');
         $this->autoRender=false;
 
         if ($this->request->is('post')){
+            $this->log("Nueva solicitud de distibucion desde plataforma",'logEnvios');
 
             $name=$this->request->data['name'];
             $phone=$this->request->data['phone'];
@@ -212,25 +223,41 @@ public $uses= array('Zone','Company','Shipment');
 
                 $success=$this->createShipment($id,$name,$phone,$address,$quantity,$weight,$finalPrice);
 
+                $id=$this->Shipment->getLastInsertID();
+
                 if ($success) {
                     $this->Flash->success('Su solicitud ha sido recibida. Le informaremos cuando sea procesada', array('key' => 'positive'));
+
+
+                    $this->log("Creada nueva solicitud numero ".$id,'logEnvios');
+
                     $this->redirect(array('controller'=> 'administrators','action' => 'index'));
                 }else{
                     $this->Flash->danger('Ha ocurrido un error, vuelva a intentarlo', array(
                     'key' => 'positive'));
+
+                    $this->log("Error al crear nuevo envio",'logEnvios');
+
                     $this->redirect(array('action' => 'newDistribution'));                    
                 }
 
             }elseif ($finalPrice == -1){
                 $this->Flash->danger('El peso menor de envío es de 100 gramos', array(
                 'key' => 'positive'));
+
+                $this->log("Error al crear nuevo envio: El peso menor de envío es de 100 gramos",'logEnvios');
+
                 $this->redirect(array('action' => 'newDistribution'));
             }elseif ($finalPrice == -2) {
                $this->Flash->danger('Uno de los códigos postales es muy corto o muy largo, verifique sus datos', array(
                     'key' => 'positive'));
+
+                $this->log("Error al crear nuevo envio: Uno de los códigos postales es muy corto o muy largo",'logEnvios');
+
                 $this->redirect(array('action' => 'newDistribution'));
             }
         }elseif($this->request->is('get')){ 
+            $this->log("Nueva solicitud de distibucion desde api",'logEnvios');
 
             $token=$this->request->params['token'];
             $name=$this->request->params['name'];
@@ -262,18 +289,31 @@ public $uses= array('Zone','Company','Shipment');
                 $id=$this->Shipment->getLastInsertID();
 
                 if ($success) {
+
+                    $this->log("Creada nueva solicitud numero ".$id,'logEnvios');
+
                    return json_encode("{'id_envio:'".$id.",'monto_tarifa':'".$finalPrice."'}");
                 }else{
+
+                    $this->log("Error al crear nuevo envio: Los parametros de entrada no estan completos",'logEnvios');
+
                     return json_encode("{'msg':'Los parametros de entrada no estan completos'}");  
                 }
 
                 
             }elseif ($finalPrice == -1){
+                    $this->log("Error al crear nuevo envio: El peso minimo para el paquete es de 100 gramos",'logEnvios');
+
                     return json_encode("{'msg':'El peso minimo para el paquete es de 100 gramos'}");                 
             }else{
+
+                $this->log("Error al crear nuevo envio: El peso minimo para el paquete es de 100 gramos",'logEnvios');
+
                 return json_encode("{'msg':'Al menos uno de los codigos postales es muy corto o muy largo, verifique sus datos'}");
             }
         }else{
+            $this->log("Error al crear nuevo envio: Token invalido",'logEnvios');
+
             return json_encode("{'msg':'Token invalido'}");
         }               
       }
