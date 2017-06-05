@@ -8,10 +8,10 @@
   <table class="table table-striped jambo_table">
     <thead>
       <tr class="headings">
-        <th class="column-title">Company </th>
-        <th class="column-title">Cost shipments</th>
+        <th class="column-title">Compañía </th>
+        <th class="column-title">Monto</th>
         
-        <th class="column-title no-link last"><span class="nobr">Factura</span>
+        <th class="column-title no-link last"><span class="nobr">#Factura</span>
         </th>
       </tr>
     </thead>
@@ -41,7 +41,7 @@
         <li class = 'list-group-item'><strong>Rif Distribudor: </strong><span id="rif_distribuidor"></span></li>
         <li class = 'list-group-item'><strong>Rif Comercio: </strong><span id="rif_comercio"></span></li>
         <li class = 'list-group-item'><strong>Nombre del comercio: </strong><span id="nombre_comercio"></span></li>
-        <li class = 'list-group-item'><strong>referencia de factura: </strong><span id="ref_factura"></span></li>
+        <li class = 'list-group-item'><strong>Referencia de factura: </strong><span id="ref_factura"></span></li>
         <li class = 'list-group-item'><strong>Fecha Emision: </strong><span id="fecha_emision"></span></li>
         <li class = 'list-group-item'><strong>Fecha Plazo: </strong><span id="fecha_plazo"></span></li>
 
