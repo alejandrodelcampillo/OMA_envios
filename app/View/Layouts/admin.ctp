@@ -54,11 +54,13 @@
                                 <li><?= $this->Html->link('<i class="fa fa-cube"></i> Envíos', '/admin/shipments', ['escape'=>false, '_full'=> true]) ?></li>
                                 <li><?= $this->Html->link('<i class="fa fa-usd"></i> Calcular Tarifa', '/calculate-rate', ['escape'=>false, '_full'=> true]) ?></li>
                                 <li><?= $this->Html->link('<i class="fa fa-paper-plane"></i> Realizar pedido', '/new-distribution', ['escape'=>false, '_full'=> true]) ?></li>                  
+                                <?php if ($user['User']['role_id'] == 1): ?>
                                 <li><?= $this->Html->link('<i class="fa fa-wpforms"></i> Reportes', '/admin/reportes', ['escape'=>false, '_full'=> true]) ?></li>
 
                                 <li><?= $this->Html->link('<i class="fa fa-wpforms"></i> Facturas', '/admin/facturas', ['escape'=>false, '_full'=> true]) ?></li>
                                 <?php  ?>                                
                                 <li><?= $this->Html->link('<i class="fa fa-file-text-o"></i> Logs', '/admin/logs', ['escape'=>false, '_full'=> true]) ?></li>
+                            <?php endif; ?>
                             </ul>
                         </div>
                     </div>

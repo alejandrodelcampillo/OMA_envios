@@ -44,7 +44,7 @@ class AdministratorsController extends AppController {
 					'User.id' => $this->Auth->user('id')
 			),
 			'recursive' => -1,
-			'fields' => array('User.name','User.last_name','User.token')
+			'fields' => array('User.name','User.last_name','User.token', 'User.role_id')
 			));
 
 		$this->set(compact('user'));
