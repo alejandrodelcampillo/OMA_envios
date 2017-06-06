@@ -63,7 +63,15 @@
                "<li class = 'list-group-item'><strong>Cantidad de ítems en paquete:</strong> "+data.Shipment.quantity+"</li>" +
                "<li class = 'list-group-item'><strong>Peso:</strong> "+data.Shipment.weigth+" Kg. </li>" +
                "<li class = 'list-group-item'><strong>Status:</strong> "+data.ShipmentState.name+"</li>"  +
-               "<li class = 'list-group-item list-group-item-success'><strong>Monto a pagar:</strong> Bs. "+data.Shipment.shipping_cost+" </li>";
+               "<li class = 'list-group-item list-group-item-success'><strong>Monto a pagar:</strong> Bs. "+data.Shipment.shipping_cost+" </li>"+
+               "<li class = 'list-group-item'><div class='dropdown'>"+
+               "<button class='btn btn-info dropdown-toggle' type='button' data-toggle='dropdown'>Cambiar Status"+
+               "<span class='caret'></span></button>"+
+               "<ul class='dropdown-menu'>"+
+               "<li><a href='/cambiar-status/"+data.Shipment.id+"/1'> Solicitado </a></li>"+
+               "<li><a href='/cambiar-status/"+data.Shipment.id+"/2'> En Proceso </a></li>"+
+               "<li><a href='/cambiar-status/"+data.Shipment.id+"/3'> Enviado </a></li>"+
+               "</ul></div></li>";
        $('#detallesEnvio').empty().append(content);
         console.log(data);
      });

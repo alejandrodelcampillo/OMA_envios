@@ -44,7 +44,7 @@ class AdministratorsController extends AppController {
 					'User.id' => $this->Auth->user('id')
 			),
 			'recursive' => -1,
-			'fields' => array('User.name','User.last_name','User.token', 'User.role_id')
+			'fields' => array('User.id','User.name','User.last_name','User.token', 'User.role_id')
 			));
 
 		$this->set(compact('user'));
@@ -53,7 +53,35 @@ class AdministratorsController extends AppController {
 
 	public function index(){
 		$this->set('title_for_layout', 'OMA Envios | Administrador');
+		$user_id = $this->Auth->user('id');
+		$this->loadModel('Shipment');
+		$envios_solicitados = sizeof($this->Shipment->find('all', array(
+            'conditions' => array(
+                    'shipment_state_id' => ShipmentState::SOLICITADO,
+                    'user_id' => $user_id
+            ),
+            'recursive' => -1
+            )));	
 
+		$envios_enproceso = sizeof($this->Shipment->find('all', array(
+            'conditions' => array(
+                    'shipment_state_id' => ShipmentState::EN_PROCESO,
+                    'user_id' => $user_id
+            ),
+            'recursive' => -1
+            )));	
+
+		$envios_enviados = sizeof($this->Shipment->find('all', array(
+            'conditions' => array(
+                    'shipment_state_id' => ShipmentState::ENVIADO,
+                    'user_id' => $user_id
+            ),
+            'recursive' => -1
+            )));
+
+		$this->set(compact('envios_enviados'));
+		$this->set(compact('envios_enproceso'));
+		$this->set(compact('envios_solicitados'));
 		
 	}
 
@@ -205,4 +233,15 @@ class AdministratorsController extends AppController {
 	    return $this->response;
 	}
 
+	public function cambiar_status(){
+
+		$id_envio = $this->request->params['id_envio'];
+		$id_status = $this->request->params['id_status'];
+		$this->loadModel('Shipment');
+		$this->Shipment->id  = $id_envio;
+		$this->Shipment->saveField('shipment_state_id', $id_status);
+		    $this->Flash->success('Status cambiado con éxito', array(
+			    'key' => 'positive'));
+			$this->redirect(array('action' => 'listShipments'));
+	}
 }

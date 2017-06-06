@@ -32,8 +32,11 @@
       <ul id="detallesEnvio" class="list-group">
         
       </ul>
+
       </div>
+
       <div class="modal-footer">
+
         <button type="button" class="btn btn-oma" data-dismiss="modal">Cerrar</button>
       </div>
     </div>

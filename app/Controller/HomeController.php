@@ -35,6 +35,7 @@ class HomeController extends AppController {
 
 	public $uses=array('User','Company');
 
+
     public function beforeFilter() {
 	 	parent::beforeFilter();
 	 	$this->Auth->allow();
@@ -69,7 +70,7 @@ class HomeController extends AppController {
 		    array('User.id' => $id)
 		);				
 
-		return $successs;
+		return $token;
 	}
 
 	public function index(){
@@ -93,6 +94,7 @@ class HomeController extends AppController {
 	public function login(){
 		$this->set('title_for_layout', 'OMA Envios | Login');
 	}
+
 
 	public function verifyLogin(){
 		$autoRender=false;
@@ -120,7 +122,6 @@ class HomeController extends AppController {
 
 				unset($user["password"]);
 				$this->Session->write('Auth.User', $user);
-				$token=$this->giveToken();	
 			}else {
 				$user = array();
 				$success = -2;
@@ -186,7 +187,6 @@ class HomeController extends AppController {
 			$success=$this->User->saveAll($dataToCreate);
 
 			if ($success) {
-
 				$user=$this->User->find('first',array(
 					'conditions' => array('User.email' => $this->request->data['email']),
 					'recursive' => -1

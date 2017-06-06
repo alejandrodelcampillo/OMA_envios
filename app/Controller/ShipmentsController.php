@@ -40,7 +40,8 @@ public $uses= array('Zone','Company','Shipment');
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('calculateRate','returnRate');
+        $this->response->header('Access-Control-Allow-Origin','*');
+        $this->Auth->allow('calculateRate','returnRate', 'requestDistribution');
         if ($this->Auth->user('id')){
             $this->loadModel('User');
             $user=$this->User->find('first',array(
@@ -48,7 +49,7 @@ public $uses= array('Zone','Company','Shipment');
                     'User.id' => $this->Auth->user('id')
             ),
             'recursive' => -1,
-            'fields' => array('User.name','User.last_name', 'User.role_id')
+            'fields' => array('User.id','User.name','User.last_name', 'User.role_id')
             ));
             $this->set(compact('user'));
             $this->layout='admin';
@@ -56,7 +57,7 @@ public $uses= array('Zone','Company','Shipment');
     }   
 
     public function index() {
-    	$this->autoRender = false;
+        $this->autoRender = false;
         //El role del usuario logueado
           $this->loadModel('Shipment');
         $role = $this->Auth->user('role_id');
@@ -68,8 +69,6 @@ public $uses= array('Zone','Company','Shipment');
             
             $shipments = $this->Shipment->find('all');
         }else{
-            //Obtenemos el id del usuario logueado
-            echo $role;
             $auth = $this->Auth->user('id');
             $shipments = $this->Shipment->find('all',
                 array('conditions'=>array('Shipment.user_id'=>$auth))/*, 
@@ -179,11 +178,11 @@ public $uses= array('Zone','Company','Shipment');
             
             $finalPrice = $this->calcTarif($origin, $destiny, $weight);
             if ($finalPrice > 0){
-                return json_encode("{'monto_tarifa':'".$finalPrice."'}");
+                return json_encode(array("monto_tarifa" => $finalPrice));
             }elseif ($finalPrice == -1){
-                    return json_encode("{'msg':'El peso minimo para el paquete es de 100 gramos'}");                 
+                return json_encode(array("msg" => "El peso minimo para el paquete es de 100 gramos"));                 
             }else
-                return json_encode("{'msg':'Al menos uno de los codigos postales es muy corto o muy largo, verifique sus datos'}");
+              return json_encode(array("msg" => "Al menos uno de los codigos postales es muy corto o muy largo, verifique sus datos"));
         }        
     }
 
@@ -269,6 +268,7 @@ public $uses= array('Zone','Company','Shipment');
             $address=$this->request->params['address'];
 
             $user=array();
+            $this->loadModel('User');
             $user=$this->User->find('first',array(
                 'conditions' => array(
                     'User.token' =>$token
@@ -292,29 +292,28 @@ public $uses= array('Zone','Company','Shipment');
 
                     $this->log("Creada nueva solicitud numero ".$id,'logEnvios');
 
-                   return json_encode("{'id_envio:'".$id.",'monto_tarifa':'".$finalPrice."'}");
+                   return json_encode(array("id_envio" => $id, "monto_tarifa" => $finalPrice));
                 }else{
 
                     $this->log("Error al crear nuevo envio: Los parametros de entrada no estan completos",'logEnvios');
 
-                    return json_encode("{'msg':'Los parametros de entrada no estan completos'}");  
+                    return json_encode(array("msg" => "Los parametros de entrada no estan completos"));
                 }
 
                 
             }elseif ($finalPrice == -1){
                     $this->log("Error al crear nuevo envio: El peso minimo para el paquete es de 100 gramos",'logEnvios');
 
-                    return json_encode("{'msg':'El peso minimo para el paquete es de 100 gramos'}");                 
+                    return json_encode(array("msg" => "El peso minimo para el paquete es de 100 gramos"));
+
             }else{
 
                 $this->log("Error al crear nuevo envio: El peso minimo para el paquete es de 100 gramos",'logEnvios');
-
-                return json_encode("{'msg':'Al menos uno de los codigos postales es muy corto o muy largo, verifique sus datos'}");
+                return json_encode(array("msg" => "Al menos uno de los codigos postales es muy corto o muy largo, verifique sus datos"));
             }
         }else{
             $this->log("Error al crear nuevo envio: Token invalido",'logEnvios');
-
-            return json_encode("{'msg':'Token invalido'}");
+            return json_encode(array("msg" => "Token invalido"));
         }               
       }
     } 

@@ -26,6 +26,7 @@
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
 	Router::connect('/', array('controller' => 'home', 'action' => 'index'));
+	Router::connect('/autenticacion', array('controller' => 'home', 'action'=> 'apiLogin'));
 
 	Router::connect('/admin', array('controller' => 'administrators', 'action' => 'index'));
 	Router::connect('/admin/logs', array('controller' => 'administrators', 'action' => 'logs'));
@@ -38,7 +39,8 @@
 	Router::connect('/calculate-rate', array('controller' => 'shipments', 'action' => 'calculateRate'));
 	Router::connect('/calcular-tarifa/:origin/:destiny/:weight', array('controller' => 'shipments', 'action' => 'returnRate'));
 	Router::connect('/new-distribution', array('controller' => 'shipments', 'action' => 'newDistribution'));
-	Router::connect('/solicitar-distribucion/:token/:name/:phone/:quantity/:weight/:origin/:destiny/:address', array('controller' => 'shipments', 'action' => 'requestDistribution'));
+	Router::connect('/solicitar-distribucion/:token/:name/:phone/:quantity/:weight/:origin/:destiny/:address', array('controller' => 'shipments', 'action' => 'requestDistribution'));	
+	Router::connect('/cambiar-status/:id_envio/:id_status', array('controller' => 'administrators', 'action' => 'cambiar_status'));
 
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
