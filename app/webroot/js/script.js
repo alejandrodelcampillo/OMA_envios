@@ -87,12 +87,18 @@
 // monto (Esta en elem)
 // fecha_plazo (Fecha actual +15 dias)
 // fecha_emision (Fecha actual)
-    rifDistribuidor = 1308250;
+//RifDistribuidor Rocio J1308250
+//RifDistribuidor Francisco 1308250
+
+    rifDistribuidor = "1308250";
     fecha_emision = fechaEmision();
     //fecha_plazo
     fecha_plazo = fechaPlazo(15);
     //token
-    token = 8658263995;
+    //Team Rocio
+    //token = "hDKl7Kg0iSSNE7Lui0y7So10j1HYYMMpWRjLl1S2ssD4TZXvA7myu3Qkv6IT";
+    //Team Francisco
+    token = "8658263995";
     factura = elem;
     $('#modalBill').modal('show');
     console.log(elem);
@@ -101,14 +107,22 @@
     $('#rif_comercio').html(elem.companies.rif);
     $('#nombre_comercio').html(elem.companies.company_name);
     $('#ref_factura').html(elem.companies.id);
+
     $('#fecha_emision').html(fecha_emision);
     $('#fecha_plazo').html(fecha_plazo);
   };
 
   function enviarFactura(){
+    console.log(token);
     console.log(rifDistribuidor);
+    console.log(factura.companies.rif);
+    console.log(factura.companies.company_name);
+    console.log(factura.companies.id);
+    console.log(factura[0].cost_sum);
+    console.log(fecha_plazo);
+    console.log(fecha_emision);
     $.ajax({
-        url : 'https://unibankwebsite.herokuapp.com/empresas/facturas',
+        url : 'https://apiunibank.herokuapp.com/empresas/facturas',
         type : 'POST',
         dataType : 'json',
         data: {token: token, rif_distribuidor:rifDistribuidor, rif_comercio:factura.companies.rif, nombre_comercio:factura.companies.company_name, ref_factura:factura.companies.id,monto:factura[0].cost_sum, fecha_plazo:fecha_plazo,fecha_emision:fecha_emision}
@@ -180,13 +194,13 @@
 
 $(document).ready(function(){
   var factura = null;
-  var rifDistribuidor = 1308250;
+  var rifDistribuidor = "j1308250";
   //fecha emision
   var fecha_emision = fechaEmision();
   //fecha_plazo
   var fecha_plazo = fechaPlazo(15);
   //token
-  var token = 8658263995;
+  var token = "8658263995";
   obtenerEnvios();
   obtenerFacturas();
 });
