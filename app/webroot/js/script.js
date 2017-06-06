@@ -79,15 +79,18 @@
 // monto (Esta en elem)
 // fecha_plazo (Fecha actual +15 dias)
 // fecha_emision (Fecha actual)
-    rifDistribuidor = "J1308250";
+//RifDistribuidor Rocio J1308250
+//RifDistribuidor Francisco 1308250
+
+    rifDistribuidor = "1308250";
     fecha_emision = fechaEmision();
     //fecha_plazo
     fecha_plazo = fechaPlazo(15);
     //token
     //Team Rocio
-    token = "hDKl7Kg0iSSNE7Lui0y7So10j1HYYMMpWRjLl1S2ssD4TZXvA7myu3Qkv6IT";
+    //token = "hDKl7Kg0iSSNE7Lui0y7So10j1HYYMMpWRjLl1S2ssD4TZXvA7myu3Qkv6IT";
     //Team Francisco
-    //token = "8658263995";
+    token = "8658263995";
     factura = elem;
     $('#modalBill').modal('show');
     console.log(elem);
@@ -111,7 +114,7 @@
     console.log(fecha_plazo);
     console.log(fecha_emision);
     $.ajax({
-        url : 'http://www.tarea-web-service.esy.es/api/enviarfactura',
+        url : 'https://apiunibank.herokuapp.com/empresas/facturas',
         type : 'POST',
         dataType : 'json',
         data: {token: token, rif_distribuidor:rifDistribuidor, rif_comercio:factura.companies.rif, nombre_comercio:factura.companies.company_name, ref_factura:factura.companies.id,monto:factura[0].cost_sum, fecha_plazo:fecha_plazo,fecha_emision:fecha_emision}
